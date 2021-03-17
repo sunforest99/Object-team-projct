@@ -20,22 +20,35 @@ bool StartScene::init()
 	}
 
 	log("-----------StartScene Log Start-----------");
-
 	auto visibleSize = Director::getInstance()->getVisibleSize();
-	log("visibleSize: %d", visibleSize);
 
-	Label* label = Label::createWithTTF("Touch to Start", "fonts/Marker Felt.ttf", 24);
+	bg1 = Sprite::create("background/01.png");
+	bg1->setAnchorPoint(Vec2::ZERO);
+	bg1->setScale(D_BASE_SACLE);
+	bg1->setPosition(Vec2::ZERO);
+	this->addChild(bg1, 0);
 
-	// position the label on the center of the screen
-	label->setPosition(Vec2(visibleSize.width / 2, visibleSize.height - label->getContentSize().height));
+	bg2 = Sprite::create("background/01.png");
+	bg2->setAnchorPoint(Vec2::ZERO);
+	bg2->setScale(D_BASE_SACLE);
+	bg2->setPosition(Vec2(0, D_DESIGN_HEIGHT));
+	this->addChild(bg2, 0);
 
-	// add the label as a child to this layer
+	logo = Sprite::create("ui/logo.png");
+	logo->setScale(D_BASE_SACLE);
+	logo->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 + 500));
+	this->addChild(logo, 1);
+
+	character = Sprite::create("ui/character_01.png");
+	character->setScale(1.3f);
+	character->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
+	this->addChild(character, 0);
+
+	label = Label::createWithTTF("Touch to Start", "fonts/Marker Felt.ttf", 70);
+	label->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 - 500));
 	this->addChild(label, 1);
 
-	Sprite* sprite = Sprite::create("HelloWorld.png");
-	sprite->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
-
-	this->addChild(sprite, 0);
+	this->schedule(schedule_selector(StartScene::SceneUpdate), 0.0f);
 
 	// 터치 이벤트를 ONE_BY_ONE 형식으로 받겠다
 	this->setTouchEnabled(true);
@@ -43,10 +56,35 @@ bool StartScene::init()
 	return true;
 }
 
+/**
+ * @brief StartScene 업데이트 부분 이미지 움직임 담당
+ * @param int dt 델타 타임 (업데이트 할때 걸려야할 시간)
+ **/
+void StartScene::SceneUpdate(float dt)
+{
+	bg1->setPosition(Vec2(0, bg1->getPositionY() - D_BACKGROUND_SPEED));
+	bg2->setPosition(Vec2(0, bg2->getPositionY() - D_BACKGROUND_SPEED));
+	if (bg1->getPositionY() <= -D_DESIGN_HEIGHT)
+	{
+		bg1->setPositionY(D_DESIGN_HEIGHT);
+	}
+	if (bg2->getPositionY() <= -D_DESIGN_HEIGHT)
+	{
+		bg2->setPositionY(D_DESIGN_HEIGHT);
+	}
+	
+	label->setOpacity(label->getOpacity() - 3);
+}
+
+/**
+ * @brief 마우스 클릭 또는 터치 했을때 호출되는 callback 함수
+ * @param Touch* touch 터치한 곳의 정보
+ * @param  Event* unused_event 이벤트 종류
+ **/
 bool StartScene::onTouchBegan(Touch* touch, Event* unused_event)
 {
 	// Scene 전환
 	Director::getInstance()->replaceScene(HelloWorld::createScene());
-
+	log("-----------StartScene Log End-----------");
 	return true;
 }
