@@ -9,18 +9,30 @@
 
 class Unit : public Node
 {
-public:
-	Vec2 _pos;
+protected:
 	int _damage;
 	int _hp;
+	Vec2 _pos;
 
 public:
-	virtual void Initialize() = 0;
+	/**
+	* @brief 각 class 초기화
+	*/
+	virtual void Init() = 0;
+
+	/**
+	* @brief 각 class 업데이트
+	*/
 	virtual void Update() = 0;
 
-	virtual Vec2 GetUnitpos() const { return _pos; }
-	virtual int GetUnitDamage() const { return _damage; }
-	virtual int GetUnithp() const { return _hp; }
+	/**
+	* @brief 유닛의 데미지 가져오기
+	*/
+	int GetUnitDamage() const { return _damage; }
+	/**
+	* @brief 유닛의 hp 가져오기
+	*/
+	int GetUnithp() const { return _hp; }
 };
 
 #endif // !_UNIT_H_

@@ -14,4 +14,7 @@
 // background scroll
 #define D_BACKGROUND_SPEED 8.f
 
+// player setting height
+#define D_PLAYER_HEIGHT 350.f
+
 #endif // !_USER_DEFINE_H

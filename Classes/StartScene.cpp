@@ -22,13 +22,17 @@ bool StartScene::init()
 	log("-----------StartScene Log Start-----------");
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 
-	bg1 = Sprite::create("background/01.png");
+	srand(time(NULL));
+	bgindex = rand() % 3;
+	charindex = rand() % 3;
+
+	bg1 = Sprite::create(_bgname[bgindex]);
 	bg1->setAnchorPoint(Vec2::ZERO);
 	bg1->setScale(D_BASE_SACLE);
 	bg1->setPosition(Vec2::ZERO);
 	this->addChild(bg1, 0);
 
-	bg2 = Sprite::create("background/01.png");
+	bg2 = Sprite::create(_bgname[bgindex]);
 	bg2->setAnchorPoint(Vec2::ZERO);
 	bg2->setScale(D_BASE_SACLE);
 	bg2->setPosition(Vec2(0, D_DESIGN_HEIGHT));
@@ -39,9 +43,9 @@ bool StartScene::init()
 	logo->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 + 500));
 	this->addChild(logo, 1);
 
-	character = Sprite::create("ui/character_01.png");
+	character = Sprite::create(_charname[charindex]);
 	character->setScale(1.3f);
-	character->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
+	character->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 - 50));
 	this->addChild(character, 0);
 
 	label = Label::createWithTTF("Touch to Start", "fonts/Marker Felt.ttf", 70);
@@ -84,7 +88,6 @@ void StartScene::SceneUpdate(float dt)
 bool StartScene::onTouchBegan(Touch* touch, Event* unused_event)
 {
 	// Scene ÀüÈ¯
-	Director::getInstance()->replaceScene(HelloWorld::createScene());
-	log("-----------StartScene Log End-----------");
+	Director::getInstance()->replaceScene(InGameScene::createScene());
 	return true;
 }

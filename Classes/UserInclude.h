@@ -16,7 +16,11 @@ USING_NS_CC;
 // include 부분 순서 조심
 #include "AppDelegate.h"
 #include "Unit.h"
-#include "HelloWorldScene.h"
+#include "Player.h"
+
+// Scene 여기아래로 class include 하면 안됨
+#include "InGameScene.h"
 #include "StartScene.h"
+#include "HelloWorldScene.h"
 
 #endif // !_USER_INCLUDE_H
