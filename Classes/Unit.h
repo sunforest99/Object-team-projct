@@ -10,7 +10,6 @@
 class Unit : public Node
 {
 protected:
-	int _damage;
 	int _hp;
 	Vec2 _pos;
 
@@ -25,10 +24,6 @@ public:
 	*/
 	virtual void Update() = 0;
 
-	/**
-	* @brief 유닛의 데미지 가져오기
-	*/
-	int GetUnitDamage() const { return _damage; }
 	/**
 	* @brief 유닛의 hp 가져오기
 	*/

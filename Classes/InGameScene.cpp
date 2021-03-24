@@ -13,7 +13,8 @@ Scene* InGameScene::createScene()
 
 InGameScene::InGameScene()
 {
-
+	rkeycheck = false;
+	lkeycheck = false;
 }
 InGameScene::~InGameScene()
 {
@@ -29,7 +30,7 @@ bool InGameScene::init()
 	}
 
 	log("-----------InGameScene Log Start-----------");
-	
+
 	InitBG();
 	InitObj();
 
@@ -38,6 +39,12 @@ bool InGameScene::init()
 	// 터치 이벤트를 ONE_BY_ONE 형식으로 받겠다
 	this->setTouchEnabled(true);
 	this->setTouchMode(Touch::DispatchMode::ONE_BY_ONE);
+
+	auto listener = EventListenerKeyboard::create();
+	listener->onKeyPressed = CC_CALLBACK_2(InGameScene::onKeyPressed, this);
+	listener->onKeyReleased = CC_CALLBACK_2(InGameScene::onKeyReleased, this);
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+
 	return true;
 }
 
@@ -84,6 +91,11 @@ void InGameScene::SceneUpdate(float dt)
 		bg2->setPositionY(D_DESIGN_HEIGHT);
 	}
 
+	if (rkeycheck == true && player->GetPos().x < D_DESIGN_WIDTH - 125)
+		player->AddPosX(10.f);
+	else if (lkeycheck == true && 0 + 125 < player->GetPos().x)
+		player->MinPosX(10.f);
+
 	// 플레이어 업데이트
 	player->Update();
 }
@@ -97,11 +109,29 @@ bool InGameScene::onTouchBegan(Touch* touch, Event* unused_event)
 {
 	player->SetPos(touch->getLocation());
 
-	log("%f %f", player->GetPos().x, player->GetPos().y);
 	return true;
 }
 
 void InGameScene::onTouchMoved(Touch* touch, Event* unused_event)
 {
-	player->SetPos(touch->getLocation());
+	if (0 + 125 < touch->getLocation().x && touch->getLocation().x < D_DESIGN_WIDTH - 125)
+	{
+		player->SetPos(touch->getLocation());
+	}
+}
+
+void InGameScene::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
+{
+	if (keyCode == EventKeyboard::KeyCode::KEY_RIGHT_ARROW)
+		rkeycheck = true;
+	if (keyCode == EventKeyboard::KeyCode::KEY_LEFT_ARROW)
+		lkeycheck = true;
+}
+
+void InGameScene::onKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
+{
+	if (keyCode == EventKeyboard::KeyCode::KEY_RIGHT_ARROW)
+		rkeycheck = false;
+	if (keyCode == EventKeyboard::KeyCode::KEY_LEFT_ARROW)
+		lkeycheck = false;
 }

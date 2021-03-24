@@ -13,6 +13,9 @@ private:
     // Player
     Player* player;
 
+    bool rkeycheck;
+    bool lkeycheck;
+
 public:
     InGameScene();
     ~InGameScene();
@@ -49,6 +52,14 @@ public:
     * @brief 터치 되었을때 (마우스 드래그)
     */
     virtual void onTouchMoved(Touch* touch, Event* unused_event);
+
+    /**
+    * @brief 키보드 입력 이벤트 발생시 호출되는 callback 함수
+    * @param KeyCode keyCode 입력된 키 코드
+    * @param Event* event 이벤트 종류
+    **/
+    virtual void onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event);
+    virtual void onKeyReleased(EventKeyboard::KeyCode keyCode, Event* event);
 
     // implement the "static create()" method manually
     CREATE_FUNC(InGameScene);
