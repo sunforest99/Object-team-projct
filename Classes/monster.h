@@ -31,7 +31,7 @@ public:
     /**
     * @brief _monster 스프라이드 주소 값 리턴
     */
-    Sprite* GetSprite() override { return _monster; }
+    Sprite* GetSprite() const override { return _monster; }
 };
 
 #endif //_MONSTER_H_

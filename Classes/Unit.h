@@ -26,7 +26,7 @@ public:
 	/**
 	* @brief sprite 가져오기
 	*/
-	virtual Sprite* GetSprite() = 0;
+	virtual Sprite* GetSprite() const = 0;
 
 	/**
 	* @brief 유닛의 hp 가져오기

@@ -50,7 +50,7 @@ public:
     /**
     * @brief sprite 주소값 가져오기
     */
-    Sprite* GetSprite() override { return _player; }
+    Sprite* GetSprite() const override  { return _player; }
 };
 
 #endif //_PLAYER_H_
