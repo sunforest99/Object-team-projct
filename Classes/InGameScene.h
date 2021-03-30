@@ -12,6 +12,7 @@ private:
 
     // Player
     Player* player;
+    Monster* monster;
 
     bool rkeycheck;
     bool lkeycheck;

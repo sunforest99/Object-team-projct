@@ -72,6 +72,9 @@ void InGameScene::InitObj()
 	player->Init();
 	this->addChild(player);
 
+	monster = new Monster();
+	monster->Init();
+	this->addChild(monster);
 }
 
 /**
@@ -98,6 +101,7 @@ void InGameScene::SceneUpdate(float dt)
 
 	// 플레이어 업데이트
 	player->Update();
+	monster->Update();
 }
 
 /**

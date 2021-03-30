@@ -39,6 +39,9 @@
     <ClCompile Include="..\Classes\Player.cpp">
       <Filter>classes</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\monster.cpp">
+      <Filter>classes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -69,6 +72,9 @@
       <Filter>scenes</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Player.h">
+      <Filter>classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\monster.h">
       <Filter>classes</Filter>
     </ClInclude>
   </ItemGroup>
