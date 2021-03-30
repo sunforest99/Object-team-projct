@@ -28,21 +28,29 @@ public:
     * @brief postion 설정하기
     * @param Vec2 pos 설정할 pos 값
     */
-    void SetPos(Vec2 pos) const { _player->setPositionX(pos.x); }
-
-    void AddPosX(float posX) const { _player->setPositionX(_player->getPosition().x + posX); }
-    void MinPosX(float posX) const { _player->setPositionX(_player->getPosition().x - posX); }
+    void SetPos(const Vec2 pos) { _player->setPositionX(pos.x); }
 
     /**
-    * @brief postion 가져오기
+    * @brief postionX 더하기
+    * @param float posX posX 더할 값
     */
-    Vec2 GetPos() const { return _pos; }
-
+    void AddPosX(const float posX) { _player->setPositionX(_player->getPosition().x + posX); }
+    /**
+    * @brief postionX 빼기
+    * @param float posX posX 뺄 값
+    */
+    void MinPosX(const float posX) { _player->setPositionX(_player->getPosition().x - posX); }
+    
     /**
     * @brief player hp 깎기
     * @param int dmg 대미지 값
     */
-    void ReduceHp(const int dmg) { _hp += dmg; }
+    void ReduceHp(const int dmg) { _hp -= dmg; }
+
+    /**
+    * @brief sprite 주소값 가져오기
+    */
+    Sprite* GetSprite() override { return _player; }
 };
 
 #endif //_PLAYER_H_

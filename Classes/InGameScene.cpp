@@ -40,6 +40,7 @@ bool InGameScene::init()
 	this->setTouchEnabled(true);
 	this->setTouchMode(Touch::DispatchMode::ONE_BY_ONE);
 
+	// 키보드 이벤트 리스너 생성
 	auto listener = EventListenerKeyboard::create();
 	listener->onKeyPressed = CC_CALLBACK_2(InGameScene::onKeyPressed, this);
 	listener->onKeyReleased = CC_CALLBACK_2(InGameScene::onKeyReleased, this);
@@ -72,9 +73,16 @@ void InGameScene::InitObj()
 	player->Init();
 	this->addChild(player);
 
-	monster = new Monster();
-	monster->Init();
-	this->addChild(monster);
+	// 몬스터 생성 및 초기화
+	for (int i = 1; i < 6; i++)
+	{
+		monster = new Monster();
+		monster->Init();
+		monster->SpriteSetPotionX(200.f * i);
+		v_monster.push_back(monster);
+		this->addChild(monster);
+		monster->release();
+	}
 }
 
 /**
@@ -94,14 +102,23 @@ void InGameScene::SceneUpdate(float dt)
 		bg2->setPositionY(D_DESIGN_HEIGHT);
 	}
 
-	if (rkeycheck == true && player->GetPos().x < D_DESIGN_WIDTH - 125)
+	if (rkeycheck == true && player->GetSprite()->getPositionX() < D_DESIGN_WIDTH - 125 && player->GetUnithp() > 0)
 		player->AddPosX(10.f);
-	else if (lkeycheck == true && 0 + 125 < player->GetPos().x)
+	else if (lkeycheck == true && 0 + 125 < player->GetSprite()->getPositionX() && player->GetUnithp() > 0)
 		player->MinPosX(10.f);
 
-	// 플레이어 업데이트
-	player->Update();
-	monster->Update();
+
+	// 몬스터 업데이트 및 충돌
+	for (auto it = v_monster.begin(); it != v_monster.end(); it++)
+	{
+		(*it)->Update();
+
+		if ((*it)->GetSprite()->getBoundingBox().intersectsRect(player->GetSprite()->getBoundingBox()))
+		{
+			// TODO 충돌 되었을때 처리
+			// player->ReduceHp(1);
+		}
+	}
 }
 
 /**
@@ -111,14 +128,15 @@ void InGameScene::SceneUpdate(float dt)
  **/
 bool InGameScene::onTouchBegan(Touch* touch, Event* unused_event)
 {
-	player->SetPos(touch->getLocation());
+	if(player->GetUnithp() > 0)
+		player->SetPos(touch->getLocation());
 
 	return true;
 }
 
 void InGameScene::onTouchMoved(Touch* touch, Event* unused_event)
 {
-	if (0 + 125 < touch->getLocation().x && touch->getLocation().x < D_DESIGN_WIDTH - 125)
+	if (0 + 125 < touch->getLocation().x && touch->getLocation().x < D_DESIGN_WIDTH - 125 && player->GetUnithp() > 0)
 	{
 		player->SetPos(touch->getLocation());
 	}

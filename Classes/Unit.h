@@ -11,7 +11,6 @@ class Unit : public Node
 {
 protected:
 	int _hp;
-	Vec2 _pos;
 
 public:
 	/**
@@ -25,9 +24,15 @@ public:
 	virtual void Update() = 0;
 
 	/**
+	* @brief sprite 가져오기
+	*/
+	virtual Sprite* GetSprite() = 0;
+
+	/**
 	* @brief 유닛의 hp 가져오기
 	*/
 	int GetUnithp() const { return _hp; }
+
 };
 
 #endif // !_UNIT_H_

@@ -3,7 +3,6 @@
 Player::Player()
 {
 	_hp = 1;
-	_pos = Vec2::ZERO;
 }
 
 void Player::Init()
@@ -18,5 +17,4 @@ void Player::Init()
 
 void Player::Update()
 {
-	_pos = _player->getPosition();
 }

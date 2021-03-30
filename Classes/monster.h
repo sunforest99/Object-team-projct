@@ -8,11 +8,30 @@ class Monster : public Unit
 private:
     // 캐릭터 이미지
     Sprite* _monster;
+
 public:
     Monster();  
+
+    /**
+   * @brief player 초기화
+   */
     void Init() override;
-    
-    void Update() override;    
+
+    /**
+    * @brief player 업데이트
+    */
+    void Update() override;
+
+    /**
+    * @brief player 업데이트
+    * @param float posX 스플라이트 posX 설정할 값
+    */
+    void SpriteSetPotionX(const float posX) { _monster->setPositionX(posX); }
+
+    /**
+    * @brief _monster 스프라이드 주소 값 리턴
+    */
+    Sprite* GetSprite() override { return _monster; }
 };
 
 #endif //_MONSTER_H_

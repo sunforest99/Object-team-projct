@@ -14,6 +14,8 @@ private:
     Player* player;
     Monster* monster;
 
+    std::vector<Monster*> v_monster;
+
     bool rkeycheck;
     bool lkeycheck;
 
