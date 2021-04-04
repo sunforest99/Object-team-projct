@@ -13,6 +13,7 @@ private:
     // Player
     Player* player;
     Monster* monster;
+    Meteo* meteo;
 
     std::vector<Monster*> v_monster;
 

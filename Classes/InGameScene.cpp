@@ -73,6 +73,7 @@ void InGameScene::InitObj()
 	player->Init();
 	this->addChild(player);
 
+
 	// 몬스터 생성 및 초기화
 	for (int i = 1; i < 6; i++)
 	{
@@ -83,6 +84,10 @@ void InGameScene::InitObj()
 		this->addChild(monster);
 		monster->release();
 	}
+
+	meteo->Init();
+	this->addChild(meteo);
+
 }
 
 /**

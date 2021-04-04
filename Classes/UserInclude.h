@@ -17,6 +17,7 @@ USING_NS_CC;
 #include "AppDelegate.h"
 #include "Unit.h"
 #include "monster.h"
+#include "Meteo.h"
 #include "Player.h"
 
 // Scene 여기아래로 class include 하면 안됨
