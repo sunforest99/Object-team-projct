@@ -22,6 +22,9 @@ bool StartScene::init()
 	log("-----------StartScene Log Start-----------");
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 
+	auto audio = SimpleAudioEngine::getInstance();
+	audio->playBackgroundMusic("bgm/dragon_flight2.mp3", true);
+
 	srand(time(NULL));
 	bgindex = rand() % 3;
 	charindex = rand() % 3;

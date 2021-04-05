@@ -16,6 +16,7 @@ private:
     Meteo* meteo;
 
     std::vector<Monster*> v_monster;
+    std::vector<Meteo*> v_meteo;
 
     bool rkeycheck;
     bool lkeycheck;
@@ -47,6 +48,8 @@ public:
     * @brief InGameScene 업데이트
     */
     void SceneUpdate(float dt);
+    void MonsterUpdate(float dt);
+    void MeteoUpdate(float dt);
 
     /**
     * @brief 터치 되었을때 (마우스 눌렀을때)

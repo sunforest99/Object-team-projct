@@ -3,7 +3,7 @@
 
 #include "stdafx.h"
 
-class Meteo : public Unit 
+class Meteo : public Unit
 {
 private:
 	// 메테오 이미지
@@ -11,25 +11,24 @@ private:
 
 public:
 
-    /**
-   * @brief player 초기화
-   */
-    void Init() override;
-
-    /**
-    * @brief player 업데이트
+	/**
+    * @brief Meteo 초기화
     */
-    void Update() override;
+	void Init() override;
 
-    /*@brief player 업데이트
-        * @param float posX 스프라이트 posX 설정할 값
-     */
-    void SpriteSetPotionX(const float posX) { _meteo->setPositionX(posX); }
-    /**
-    * @brief _monster 스프라이트 주소 값 리턴
-    */
-    Sprite* GetSprite() const override { return _meteo; }
+	/**
+	* @brief Meteo 업데이트
+	*/
+	void Update() override;
 
+	/*@brief Meteo 업데이트
+	* @param float posX 스프라이트 posX 설정할 값
+	 */
+	void SpriteSetPotionX(const float posX) { _meteo->setPositionX(posX); }
+	/**
+	* @brief _monster 스프라이트 주소 값 리턴
+	*/
+	Sprite* GetSprite() const override { return _meteo; }
 };
 
 #endif

@@ -6,6 +6,8 @@
 #include "SimpleAudioEngine.h"
 // using namsepace cocos2d;
 USING_NS_CC;
+// usning namespace audio engie
+using namespace CocosDenshion;
 
 // 게임 만들때 필요한 도구들
 #include <vector>

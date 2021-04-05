@@ -34,7 +34,12 @@ bool InGameScene::init()
 	InitBG();
 	InitObj();
 
+	auto audio = SimpleAudioEngine::getInstance();
+	audio->playBackgroundMusic("bgm/dragon_flight.mp3", true);
+
 	this->schedule(schedule_selector(InGameScene::SceneUpdate), 0.0f);
+	this->schedule(schedule_selector(InGameScene::MonsterUpdate), 3.0f);
+	this->schedule(schedule_selector(InGameScene::MeteoUpdate), 2.0f);
 
 	// 터치 이벤트를 ONE_BY_ONE 형식으로 받겠다
 	this->setTouchEnabled(true);
@@ -72,22 +77,29 @@ void InGameScene::InitObj()
 	player = new Player();
 	player->Init();
 	this->addChild(player);
+}
 
+void InGameScene::MeteoUpdate(float dt)
+{
+	meteo = new Meteo();
+	meteo->Init();
+	this->addChild(meteo);
+	v_meteo.push_back(meteo);
+	meteo->release();
+}
 
-	// 몬스터 생성 및 초기화
+void InGameScene::MonsterUpdate(float dt)
+{
 	for (int i = 1; i < 6; i++)
 	{
 		monster = new Monster();
 		monster->Init();
 		monster->SpriteSetPotionX(200.f * i);
-		v_monster.push_back(monster);
+		log("y: %f", monster->GetSprite()->getPositionY());
 		this->addChild(monster);
+		v_monster.push_back(monster);
 		monster->release();
 	}
-
-	meteo->Init();
-	this->addChild(meteo);
-
 }
 
 /**
@@ -116,6 +128,30 @@ void InGameScene::SceneUpdate(float dt)
 	// 몬스터 업데이트 및 충돌
 	for (auto it = v_monster.begin(); it != v_monster.end(); it++)
 	{
+		if ((*it)->GetSprite()->getPositionY() < -D_DESIGN_HEIGHT * 2)
+		{
+			this->removeChild((*it));
+			it = v_monster.erase(it);
+		}
+
+		(*it)->Update();
+
+		if ((*it)->GetSprite()->getBoundingBox().intersectsRect(player->GetSprite()->getBoundingBox()))
+		{
+			// TODO 충돌 되었을때 처리
+			// player->ReduceHp(1);
+		}
+	}
+
+	// 메테오 업데이트 및 충돌
+	for (auto it = v_meteo.begin(); it != v_meteo.end(); it++)
+	{
+		if ((*it)->GetSprite()->getPositionY() < -D_DESIGN_HEIGHT * 2)
+		{
+			this->removeChild((*it));
+			it = v_meteo.erase(it);
+		}
+
 		(*it)->Update();
 
 		if ((*it)->GetSprite()->getBoundingBox().intersectsRect(player->GetSprite()->getBoundingBox()))
@@ -133,7 +169,7 @@ void InGameScene::SceneUpdate(float dt)
  **/
 bool InGameScene::onTouchBegan(Touch* touch, Event* unused_event)
 {
-	if(player->GetUnithp() > 0)
+	if (player->GetUnithp() > 0)
 		player->SetPos(touch->getLocation());
 
 	return true;
