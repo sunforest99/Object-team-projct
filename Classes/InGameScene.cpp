@@ -62,13 +62,13 @@ void InGameScene::InitBG()
 	bg1->setAnchorPoint(Vec2::ZERO);
 	bg1->setScale(D_BASE_SACLE);
 	bg1->setPosition(Vec2::ZERO);
-	this->addChild(bg1, 0);
+	this->addChild(bg1, SET_Z_ORDER::E_BACKGROUND);
 
 	bg2 = Sprite::create("background/01.png");
 	bg2->setAnchorPoint(Vec2::ZERO);
 	bg2->setScale(D_BASE_SACLE);
 	bg2->setPosition(Vec2(0, D_DESIGN_HEIGHT));
-	this->addChild(bg2, 0);
+	this->addChild(bg2, SET_Z_ORDER::E_BACKGROUND);
 }
 
 void InGameScene::InitObj()
@@ -76,14 +76,14 @@ void InGameScene::InitObj()
 	// 플레이어 객체 생성 및 초기화
 	player = new Player();
 	player->Init();
-	this->addChild(player);
+	this->addChild(player, SET_Z_ORDER::E_PLAYER);
 }
 
 void InGameScene::MeteoUpdate(float dt)
 {
 	meteo = new Meteo();
 	meteo->Init();
-	this->addChild(meteo);
+	this->addChild(meteo, SET_Z_ORDER::E_METEO);
 	v_meteo.push_back(meteo);
 	meteo->release();
 }
@@ -96,7 +96,7 @@ void InGameScene::MonsterUpdate(float dt)
 		monster->Init();
 		monster->SpriteSetPotionX(200.f * i);
 		log("y: %f", monster->GetSprite()->getPositionY());
-		this->addChild(monster);
+		this->addChild(monster, SET_Z_ORDER::E_MONSTER);
 		v_monster.push_back(monster);
 		monster->release();
 	}

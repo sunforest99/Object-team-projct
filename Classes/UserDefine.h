@@ -17,4 +17,13 @@
 // player setting height
 #define D_PLAYER_HEIGHT 350.f
 
+enum SET_Z_ORDER
+{
+	E_WINGS = -1,
+	E_BACKGROUND,
+	E_PLAYER,
+	E_METEO = 1,
+	E_MONSTER
+};
+
 #endif // !_USER_DEFINE_H
