@@ -9,7 +9,6 @@ private:
     // 캐릭터 이미지
     Sprite* _monster;
     Size    _parent;
-    Sprite* _colbox;
 
     Sprite* _lwing;
     Sprite* _rwing;

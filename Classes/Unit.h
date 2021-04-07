@@ -28,11 +28,11 @@ public:
 	*/
 	virtual Sprite* GetSprite() const = 0;
 
+	virtual Rect GetCollisionBox() const = 0;
 	/**
 	* @brief 유닛의 hp 가져오기
 	*/
 	int GetUnithp() const { return _hp; }
-
 };
 
 #endif // !_UNIT_H_

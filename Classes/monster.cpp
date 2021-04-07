@@ -13,9 +13,9 @@ void Monster::Init()
 	mainsprite->addSpriteFramesWithFile("monster.plist");
 
 	_monster = Sprite::createWithSpriteFrameName("dragon_01_body.png");
-	_monster->setScale(1.7f);
+	_monster->setScale(1.5f);
 	_monster->setPositionY(D_DESIGN_HEIGHT);
-	this->addChild(_monster);
+
 
 	_lwing = Sprite::createWithSpriteFrameName("dragon_01_wing.png");
 	_rwing = Sprite::createWithSpriteFrameName("dragon_01_wing.png");
@@ -24,9 +24,13 @@ void Monster::Init()
 
 	_lwing->setPosition(Vec2(_parent.width / 2 - 40.f, _parent.height / 2));
 	_rwing->setPosition(Vec2(_parent.width / 2 + 40.f, _parent.height / 2));
+
 	_rwing->setFlipX(true);
+
 	_monster->addChild(_lwing, SET_Z_ORDER::E_WINGS);
 	_monster->addChild(_rwing, SET_Z_ORDER::E_WINGS);
+
+	this->addChild(_monster);
 }
 
 void Monster::Update()

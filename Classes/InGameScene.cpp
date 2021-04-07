@@ -34,8 +34,9 @@ bool InGameScene::init()
 	InitBG();
 	InitObj();
 
-	auto audio = SimpleAudioEngine::getInstance();
-	audio->playBackgroundMusic("bgm/dragon_flight.mp3", true);
+	// 배경음악 시끄러워서 주석처리
+	/*auto audio = SimpleAudioEngine::getInstance();
+	audio->playBackgroundMusic("bgm/dragon_flight.mp3", true);*/
 
 	this->schedule(schedule_selector(InGameScene::SceneUpdate), 0.0f);
 	this->schedule(schedule_selector(InGameScene::MonsterUpdate), 3.0f);
@@ -90,11 +91,11 @@ void InGameScene::MeteoUpdate(float dt)
 
 void InGameScene::MonsterUpdate(float dt)
 {
-	for (int i = 1; i < 6; i++)
+	for (int i = 0; i < 5; i++)
 	{
 		monster = new Monster();
 		monster->Init();
-		monster->SpriteSetPotionX(200.f * i);
+		monster->SpriteSetPotionX(128 + 224 * i);
 		log("y: %f", monster->GetSprite()->getPositionY());
 		this->addChild(monster, SET_Z_ORDER::E_MONSTER);
 		v_monster.push_back(monster);
@@ -126,38 +127,46 @@ void InGameScene::SceneUpdate(float dt)
 
 
 	// 몬스터 업데이트 및 충돌
-	for (auto it = v_monster.begin(); it != v_monster.end(); it++)
+	for (auto it = v_monster.begin(); it != v_monster.end();)
 	{
-		if ((*it)->GetSprite()->getPositionY() < -D_DESIGN_HEIGHT * 2)
-		{
-			this->removeChild((*it));
-			it = v_monster.erase(it);
-		}
-
 		(*it)->Update();
 
 		if ((*it)->GetSprite()->getBoundingBox().intersectsRect(player->GetSprite()->getBoundingBox()))
 		{
 			// TODO 충돌 되었을때 처리
 			// player->ReduceHp(1);
+			this->removeChild((*it));
+			it = v_monster.erase(it);
+		}
+		else if ((*it)->GetSprite()->getPositionY() < -D_DESIGN_HEIGHT * 2)
+		{
+			this->removeChild((*it));
+			it = v_monster.erase(it);
+		}
+		else
+		{
+			++it;
 		}
 	}
 
 	// 메테오 업데이트 및 충돌
 	for (auto it = v_meteo.begin(); it != v_meteo.end(); it++)
 	{
-		if ((*it)->GetSprite()->getPositionY() < -D_DESIGN_HEIGHT * 2)
-		{
-			this->removeChild((*it));
-			it = v_meteo.erase(it);
-		}
-
 		(*it)->Update();
 
 		if ((*it)->GetSprite()->getBoundingBox().intersectsRect(player->GetSprite()->getBoundingBox()))
 		{
 			// TODO 충돌 되었을때 처리
 			// player->ReduceHp(1);
+		}
+		else if ((*it)->GetSprite()->getPositionY() < -D_DESIGN_HEIGHT * 2)
+		{
+			this->removeChild((*it));
+			it = v_meteo.erase(it);
+		}
+		else
+		{
+			++it;
 		}
 	}
 }
