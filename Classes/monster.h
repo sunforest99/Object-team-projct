@@ -12,6 +12,12 @@ private:
 
     Sprite* _lwing;
     Sprite* _rwing;
+
+    Sprite* _leye;
+    Sprite* _reye;
+
+    Sprite* _leyebrow;
+    Sprite* _reyebrow;
 public:
     Monster();  
 

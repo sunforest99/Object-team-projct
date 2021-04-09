@@ -150,7 +150,7 @@ void InGameScene::SceneUpdate(float dt)
 	}
 
 	// 메테오 업데이트 및 충돌
-	for (auto it = v_meteo.begin(); it != v_meteo.end(); it++)
+	for (auto it = v_meteo.begin(); it != v_meteo.end();)
 	{
 		(*it)->Update();
 
@@ -158,6 +158,8 @@ void InGameScene::SceneUpdate(float dt)
 		{
 			// TODO 충돌 되었을때 처리
 			// player->ReduceHp(1);
+			this->removeChild((*it));
+			it = v_meteo.erase(it);
 		}
 		else if ((*it)->GetSprite()->getPositionY() < -D_DESIGN_HEIGHT * 2)
 		{

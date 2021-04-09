@@ -16,7 +16,7 @@ void Monster::Init()
 	_monster->setScale(1.5f);
 	_monster->setPositionY(D_DESIGN_HEIGHT);
 
-
+	// --- ³¯°³
 	_lwing = Sprite::createWithSpriteFrameName("dragon_01_wing.png");
 	_rwing = Sprite::createWithSpriteFrameName("dragon_01_wing.png");
 
@@ -29,6 +29,32 @@ void Monster::Init()
 
 	_monster->addChild(_lwing, SET_Z_ORDER::E_WINGS);
 	_monster->addChild(_rwing, SET_Z_ORDER::E_WINGS);
+
+	// ---- ´«
+	_leye = Sprite::createWithSpriteFrameName("dragon_eye.png");
+	_reye = Sprite::createWithSpriteFrameName("dragon_eye.png");
+
+	_reye->setFlipX(true);
+	_parent = _monster->getContentSize();
+
+	_leye->setPosition(Vec2(_parent.width / 2 - 15.f, _parent.height / 2));
+	_reye->setPosition(Vec2(_parent.width / 2 + 15.f, _parent.height / 2));
+
+	_monster->addChild(_leye, SET_Z_ORDER::E_MONSTER_EYE);
+	_monster->addChild(_reye, SET_Z_ORDER::E_MONSTER_EYE);
+
+	// ---- ´«¾Ë
+	_leyebrow = Sprite::createWithSpriteFrameName("dragon_01_eyebrow.png");
+	_reyebrow = Sprite::createWithSpriteFrameName("dragon_01_eyebrow.png");
+
+	_reyebrow->setFlipX(true);
+	_parent = _monster->getContentSize();
+
+	_leyebrow->setPosition(Vec2(_parent.width / 2 - 15.f, _parent.height / 2));
+	_reyebrow->setPosition(Vec2(_parent.width / 2 + 15.f, _parent.height / 2));
+
+	_monster->addChild(_leyebrow, SET_Z_ORDER::E_MONSTER_EYE);
+	_monster->addChild(_reyebrow, SET_Z_ORDER::E_MONSTER_EYE);
 
 	this->addChild(_monster);
 }

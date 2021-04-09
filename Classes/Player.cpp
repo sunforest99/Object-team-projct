@@ -16,7 +16,7 @@ void Player::Init()
 	_player->setScale(1.5f);
 	_player->setPosition(Vec2(visibleSize.width /2 , D_PLAYER_HEIGHT));
 
-	
+	// ---- ³¯°³
 	_lwing = Sprite::createWithSpriteFrameName("pink_wing.png");
 	_rwing = Sprite::createWithSpriteFrameName("pink_wing.png");
 	
@@ -31,6 +31,13 @@ void Player::Init()
 	_player->addChild(_rwing, SET_Z_ORDER::E_WINGS);
 
 	this->addChild(_player);
+}
+
+void Player::DamageInit()
+{
+	_damage = Sprite::create("damage.png");
+	_damage->setPosition(_player->getPosition());
+	this->addChild(_damage);
 }
 
 void Player::Update()

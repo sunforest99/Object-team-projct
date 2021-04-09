@@ -13,6 +13,8 @@ private:
     Sprite* _lwing;
     Sprite* _rwing;
 
+    Sprite* _damage;
+
 public:
     /**
     * @brief player hp, pos 초기화
@@ -23,6 +25,8 @@ public:
     * @brief player 초기화
     */
     void Init() override;
+    
+    void DamageInit();
     /**
     * @brief player 업데이트
     */
