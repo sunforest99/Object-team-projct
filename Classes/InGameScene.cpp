@@ -125,7 +125,7 @@ void InGameScene::SceneUpdate(float dt)
 	else if (lkeycheck == true && 0 + 125 < player->GetSprite()->getPositionX() && player->GetUnithp() > 0)
 		player->MinPosX(10.f);
 
-
+	player->Update();
 	// 몬스터 업데이트 및 충돌
 	for (auto it = v_monster.begin(); it != v_monster.end();)
 	{

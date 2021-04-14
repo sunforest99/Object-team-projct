@@ -1,7 +1,4 @@
 #include "stdafx.h"
-#include "stdlib.h"
-#include "time.h"
-#define RAND_MAX 960
 
 void Meteo::Init()
 {

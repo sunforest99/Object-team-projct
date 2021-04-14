@@ -15,6 +15,8 @@ private:
 
     Sprite* _damage;
 
+    Sequence* seq;
+
 public:
     /**
     * @brief player hp, pos √ ±‚»≠

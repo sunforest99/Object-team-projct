@@ -27,6 +27,20 @@ void Player::Init()
 
 	_rwing->setFlipX(true);
 
+	auto scaleTo = ScaleTo::create(0.5f,0.9f);
+	auto scaleTo1 = ScaleTo::create(0.5f, 1.3f);
+	auto seq = Sequence::create(scaleTo, scaleTo1, nullptr);
+
+	auto scaleTo2 = ScaleTo::create(0.5f, 0.9f);
+	auto scaleTo3 = ScaleTo::create(0.5f, 1.3f);
+	auto seq1 = Sequence::create(scaleTo2, scaleTo3, nullptr);
+
+	RepeatForever* repeat_forever = RepeatForever::create(seq);
+	RepeatForever* repeat_forever1 = RepeatForever::create(seq1);
+
+	_lwing->runAction(repeat_forever);
+	_rwing->runAction(repeat_forever1);
+
 	_player->addChild(_lwing, SET_Z_ORDER::E_WINGS);
 	_player->addChild(_rwing, SET_Z_ORDER::E_WINGS);
 

@@ -17,6 +17,8 @@
 // player setting height
 #define D_PLAYER_HEIGHT 350.f
 
+#define RAND_MAX 960
+
 enum SET_Z_ORDER
 {
 	E_WINGS = -1,
