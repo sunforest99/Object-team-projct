@@ -22,10 +22,24 @@ void Monster::Init()
 
 	_parent = _monster->getContentSize();
 
-	_lwing->setPosition(Vec2(_parent.width / 2 - 40.f, _parent.height / 2));
-	_rwing->setPosition(Vec2(_parent.width / 2 + 40.f, _parent.height / 2));
+	_lwing->setPosition(Vec2(_parent.width / 2 - 43.f, _parent.height / 2));
+	_rwing->setPosition(Vec2(_parent.width / 2 + 43.f, _parent.height / 2));
 
 	_rwing->setFlipX(true);
+
+	auto rwingreduce = ScaleTo::create(0.5f, 0.9f);
+	auto rwingincrease = ScaleTo::create(0.5f, 1.2f);
+	auto rseq = Sequence::create(rwingreduce, rwingincrease, nullptr);
+
+	auto lwingreduce = ScaleTo::create(0.5f, 0.9f);
+	auto lwingincrease = ScaleTo::create(0.5f, 1.2f);
+	auto lseq = Sequence::create(lwingreduce, lwingincrease, nullptr);
+
+	RepeatForever* ractionrepeat = RepeatForever::create(rseq);
+	RepeatForever* lactionrepeat = RepeatForever::create(lseq);
+
+	_rwing->runAction(ractionrepeat);
+	_lwing->runAction(lactionrepeat);
 
 	_monster->addChild(_lwing, SET_Z_ORDER::E_WINGS);
 	_monster->addChild(_rwing, SET_Z_ORDER::E_WINGS);

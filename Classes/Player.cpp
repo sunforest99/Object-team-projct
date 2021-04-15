@@ -27,22 +27,22 @@ void Player::Init()
 
 	_rwing->setFlipX(true);
 
-	auto scaleTo = ScaleTo::create(0.5f,0.9f);
-	auto scaleTo1 = ScaleTo::create(0.5f, 1.3f);
-	auto seq = Sequence::create(scaleTo, scaleTo1, nullptr);
+	auto rwingreduce = ScaleTo::create(0.5f,0.9f);
+	auto rwingincrease = ScaleTo::create(0.5f, 1.1f);
+	auto rseq = Sequence::create(rwingreduce, rwingincrease, nullptr);
 
-	auto scaleTo2 = ScaleTo::create(0.5f, 0.9f);
-	auto scaleTo3 = ScaleTo::create(0.5f, 1.3f);
-	auto seq1 = Sequence::create(scaleTo2, scaleTo3, nullptr);
+	auto lwingreduce = ScaleTo::create(0.5f, 0.9f);
+	auto lwingincrease = ScaleTo::create(0.5f, 1.1f);
+	auto lseq = Sequence::create(lwingreduce, lwingincrease, nullptr);
 
-	RepeatForever* repeat_forever = RepeatForever::create(seq);
-	RepeatForever* repeat_forever1 = RepeatForever::create(seq1);
+	RepeatForever* ractionrepeat = RepeatForever::create(rseq);
+	RepeatForever* lactionrepeat = RepeatForever::create(lseq);
 
-	_lwing->runAction(repeat_forever);
-	_rwing->runAction(repeat_forever1);
+	_rwing->runAction(ractionrepeat);
+	_lwing->runAction(lactionrepeat);
 
-	_player->addChild(_lwing, SET_Z_ORDER::E_WINGS);
 	_player->addChild(_rwing, SET_Z_ORDER::E_WINGS);
+	_player->addChild(_lwing, SET_Z_ORDER::E_WINGS);
 
 	this->addChild(_player);
 }
