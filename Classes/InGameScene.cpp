@@ -1,5 +1,8 @@
 #include "stdafx.h"
 
+/**
+* @brief InGameScene 생성
+*/
 Scene* InGameScene::createScene()
 {
 	auto scene = Scene::create();
@@ -13,14 +16,17 @@ Scene* InGameScene::createScene()
 
 InGameScene::InGameScene()
 {
-	rkeycheck = false;
-	lkeycheck = false;
+	_rkeycheck = false;
+	_lkeycheck = false;
 }
 InGameScene::~InGameScene()
 {
-	player->release();
+	_player->release();
 }
 
+/**
+* @brief Layer 초기화
+*/
 bool InGameScene::init()
 {
 	// 오류나면 안됨!!
@@ -32,7 +38,7 @@ bool InGameScene::init()
 	log("-----------InGameScene Log Start-----------");
 
 	InitBG();
-	InitObj();
+	InitPlayer();
 
 	// 배경음악 시끄러워서 주석처리
 	/*auto audio = SimpleAudioEngine::getInstance();
@@ -55,83 +61,95 @@ bool InGameScene::init()
 	return true;
 }
 
+/**
+* @brief 배경 초기화
+*/
 void InGameScene::InitBG()
 {
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 
-	bg1 = Sprite::create("background/01.png");
-	bg1->setAnchorPoint(Vec2::ZERO);
-	bg1->setScale(D_BASE_SACLE);
-	bg1->setPosition(Vec2::ZERO);
-	this->addChild(bg1, SET_Z_ORDER::E_BACKGROUND);
+	_bg1 = Sprite::create("background/01.png");
+	_bg1->setAnchorPoint(Vec2::ZERO);
+	_bg1->setScale(D_BASE_SACLE);
+	_bg1->setPosition(Vec2::ZERO);
+	this->addChild(_bg1, INGAME_ZORDER::E_BACKGROUND);
 
-	bg2 = Sprite::create("background/01.png");
-	bg2->setAnchorPoint(Vec2::ZERO);
-	bg2->setScale(D_BASE_SACLE);
-	bg2->setPosition(Vec2(0, D_DESIGN_HEIGHT));
-	this->addChild(bg2, SET_Z_ORDER::E_BACKGROUND);
+	_bg2 = Sprite::create("background/01.png");
+	_bg2->setAnchorPoint(Vec2::ZERO);
+	_bg2->setScale(D_BASE_SACLE);
+	_bg2->setPosition(Vec2(0, D_DESIGN_HEIGHT));
+	this->addChild(_bg2, INGAME_ZORDER::E_BACKGROUND);
 }
 
-void InGameScene::InitObj()
+
+/**
+* @brief Player 초기화
+*/
+void InGameScene::InitPlayer()
 {
 	// 플레이어 객체 생성 및 초기화
-	player = new Player();
-	player->Init();
-	this->addChild(player, SET_Z_ORDER::E_PLAYER);
+	_player = new Player();
+	_player->InitObject();
+	this->addChild(_player, INGAME_ZORDER::E_PLAYER);
 }
-
-void InGameScene::MeteoUpdate(float dt)
-{
-	meteo = new Meteo();
-	meteo->Init();
-	this->addChild(meteo, SET_Z_ORDER::E_METEO);
-	v_meteo.push_back(meteo);
-	meteo->release();
-}
-
+/**
+* @brief Monster 업데이트
+*/
 void InGameScene::MonsterUpdate(float dt)
 {
 	for (int i = 0; i < 5; i++)
 	{
-		monster = new Monster();
-		monster->Init();
-		monster->SpriteSetPotionX(128 + 224 * i);
-		log("y: %f", monster->GetSprite()->getPositionY());
-		this->addChild(monster, SET_Z_ORDER::E_MONSTER);
-		v_monster.push_back(monster);
-		monster->release();
+		_monster = new Monster();
+		_monster->InitObject();
+		_monster->SpriteSetPotionX(128 + 224 * i);
+		log("y: %f", _monster->GetSprite()->getPositionY());
+		this->addChild(_monster, INGAME_ZORDER::E_MONSTER);
+		v_monster.push_back(_monster);
+		_monster->release();
 	}
 }
 
 /**
- * @brief InGameScene 업데이트 부분 이미지 움직임 담당
- * @param int dt 델타 타임 (업데이트 할때 걸려야할 시간)
- **/
+* @brief Meteo 업데이트
+*/
+void InGameScene::MeteoUpdate(float dt)
+{
+	_meteo = new Meteo();
+	_meteo->InitObject();
+	this->addChild(_meteo, INGAME_ZORDER::E_METEO);
+	v_meteo.push_back(_meteo);
+	_meteo->release();
+}
+
+/**
+* @brief InGameScene 업데이트 부분 이미지 움직임 담당
+* @param int dt 델타 타임 (업데이트 할때 걸려야할 시간)
+**/
 void InGameScene::SceneUpdate(float dt)
 {
-	bg1->setPosition(Vec2(0, bg1->getPositionY() - D_BACKGROUND_SPEED));
-	bg2->setPosition(Vec2(0, bg2->getPositionY() - D_BACKGROUND_SPEED));
-	if (bg1->getPositionY() <= -D_DESIGN_HEIGHT)
+	_bg1->setPosition(Vec2(0, _bg1->getPositionY() - D_BACKGROUND_SPEED));
+	_bg2->setPosition(Vec2(0, _bg2->getPositionY() - D_BACKGROUND_SPEED));
+	if (_bg1->getPositionY() <= -D_DESIGN_HEIGHT)
 	{
-		bg1->setPositionY(D_DESIGN_HEIGHT);
+		_bg1->setPositionY(D_DESIGN_HEIGHT);
 	}
-	if (bg2->getPositionY() <= -D_DESIGN_HEIGHT)
+	if (_bg2->getPositionY() <= -D_DESIGN_HEIGHT)
 	{
-		bg2->setPositionY(D_DESIGN_HEIGHT);
+		_bg2->setPositionY(D_DESIGN_HEIGHT);
 	}
 
-	if (rkeycheck == true && player->GetSprite()->getPositionX() < D_DESIGN_WIDTH - 125 && player->GetUnithp() > 0)
-		player->AddPosX(10.f);
-	else if (lkeycheck == true && 0 + 125 < player->GetSprite()->getPositionX() && player->GetUnithp() > 0)
-		player->MinPosX(10.f);
+	if (_rkeycheck == true && _player->GetSprite()->getPositionX() < D_DESIGN_WIDTH - 125 && _player->GetUnithp() > 0)
+		_player->AddPosX(10.f);
+	else if (_lkeycheck == true && 0 + 125 < _player->GetSprite()->getPositionX() && _player->GetUnithp() > 0)
+		_player->MinPosX(10.f);
 
-	player->Update();
+	_player->Update();
 	// 몬스터 업데이트 및 충돌
 	for (auto it = v_monster.begin(); it != v_monster.end();)
 	{
 		(*it)->Update();
 
-		if ((*it)->GetSprite()->getBoundingBox().intersectsRect(player->GetSprite()->getBoundingBox()))
+		if ((*it)->GetSprite()->getBoundingBox().intersectsRect(_player->GetSprite()->getBoundingBox()))
 		{
 			// TODO 충돌 되었을때 처리
 			// player->ReduceHp(1);
@@ -154,7 +172,7 @@ void InGameScene::SceneUpdate(float dt)
 	{
 		(*it)->Update();
 
-		if ((*it)->GetSprite()->getBoundingBox().intersectsRect(player->GetSprite()->getBoundingBox()))
+		if ((*it)->GetSprite()->getBoundingBox().intersectsRect(_player->GetSprite()->getBoundingBox()))
 		{
 			// TODO 충돌 되었을때 처리
 			// player->ReduceHp(1);
@@ -174,38 +192,43 @@ void InGameScene::SceneUpdate(float dt)
 }
 
 /**
- * @brief 마우스 클릭 또는 터치 했을때 호출되는 callback 함수
- * @param Touch* touch 터치한 곳의 정보
- * @param  Event* unused_event 이벤트 종류
- **/
+* @brief 마우스 클릭 또는 터치 했을때 호출되는 callback 함수
+* @param Touch* touch 터치한 곳의 정보
+* @param  Event* unused_event 이벤트 종류
+**/
 bool InGameScene::onTouchBegan(Touch* touch, Event* unused_event)
 {
-	if (player->GetUnithp() > 0)
-		player->SetPos(touch->getLocation());
+	if (_player->GetUnithp() > 0)
+		_player->SetPos(touch->getLocation());
 
 	return true;
 }
 
 void InGameScene::onTouchMoved(Touch* touch, Event* unused_event)
 {
-	if (0 + 125 < touch->getLocation().x && touch->getLocation().x < D_DESIGN_WIDTH - 125 && player->GetUnithp() > 0)
+	if (0 + 125 < touch->getLocation().x && touch->getLocation().x < D_DESIGN_WIDTH - 125 && _player->GetUnithp() > 0)
 	{
-		player->SetPos(touch->getLocation());
+		_player->SetPos(touch->getLocation());
 	}
 }
 
+/**
+* @brief 키보드 입력 이벤트 발생시 호출되는 callback 함수
+* @param KeyCode keyCode 입력된 키 코드
+* @param Event* event 이벤트 종류
+**/
 void InGameScene::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 {
 	if (keyCode == EventKeyboard::KeyCode::KEY_RIGHT_ARROW)
-		rkeycheck = true;
+		_rkeycheck = true;
 	if (keyCode == EventKeyboard::KeyCode::KEY_LEFT_ARROW)
-		lkeycheck = true;
+		_lkeycheck = true;
 }
 
 void InGameScene::onKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
 {
 	if (keyCode == EventKeyboard::KeyCode::KEY_RIGHT_ARROW)
-		rkeycheck = false;
+		_rkeycheck = false;
 	if (keyCode == EventKeyboard::KeyCode::KEY_LEFT_ARROW)
-		lkeycheck = false;
+		_lkeycheck = false;
 }

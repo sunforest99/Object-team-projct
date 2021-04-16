@@ -5,7 +5,7 @@ Monster::Monster()
 	_hp = 1;
 }
 
-void Monster::Init()
+void Monster::InitObject()
 {
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 
@@ -13,7 +13,7 @@ void Monster::Init()
 	mainsprite->addSpriteFramesWithFile("monster.plist");
 
 	_monster = Sprite::createWithSpriteFrameName("dragon_01_body.png");
-	_monster->setScale(1.5f);
+	_monster->setScale(D_BASE_SACLE);
 	_monster->setPositionY(D_DESIGN_HEIGHT);
 
 	// --- ³¯°³
@@ -41,8 +41,8 @@ void Monster::Init()
 	_rwing->runAction(ractionrepeat);
 	_lwing->runAction(lactionrepeat);
 
-	_monster->addChild(_lwing, SET_Z_ORDER::E_WINGS);
-	_monster->addChild(_rwing, SET_Z_ORDER::E_WINGS);
+	_monster->addChild(_lwing, INGAME_ZORDER::E_WINGS);
+	_monster->addChild(_rwing, INGAME_ZORDER::E_WINGS);
 
 	// ---- ´«
 	_leye = Sprite::createWithSpriteFrameName("dragon_eye.png");
@@ -54,8 +54,8 @@ void Monster::Init()
 	_leye->setPosition(Vec2(_parent.width / 2 - 15.f, _parent.height / 2));
 	_reye->setPosition(Vec2(_parent.width / 2 + 15.f, _parent.height / 2));
 
-	_monster->addChild(_leye, SET_Z_ORDER::E_MONSTER_EYE);
-	_monster->addChild(_reye, SET_Z_ORDER::E_MONSTER_EYE);
+	_monster->addChild(_leye, INGAME_ZORDER::E_MONSTER_EYE);
+	_monster->addChild(_reye, INGAME_ZORDER::E_MONSTER_EYE);
 
 	// ---- ´«¾Ë
 	_leyebrow = Sprite::createWithSpriteFrameName("dragon_01_eyebrow.png");
@@ -67,8 +67,8 @@ void Monster::Init()
 	_leyebrow->setPosition(Vec2(_parent.width / 2 - 15.f, _parent.height / 2));
 	_reyebrow->setPosition(Vec2(_parent.width / 2 + 15.f, _parent.height / 2));
 
-	_monster->addChild(_leyebrow, SET_Z_ORDER::E_MONSTER_EYE);
-	_monster->addChild(_reyebrow, SET_Z_ORDER::E_MONSTER_EYE);
+	_monster->addChild(_leyebrow, INGAME_ZORDER::E_MONSTER_EYE);
+	_monster->addChild(_reyebrow, INGAME_ZORDER::E_MONSTER_EYE);
 
 	this->addChild(_monster);
 }

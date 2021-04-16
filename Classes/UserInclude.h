@@ -4,6 +4,7 @@
 // cocos 부분
 #include "cocos2d.h"
 #include "SimpleAudioEngine.h"
+#include "ui/CocosGUI.h"
 // using namsepace cocos2d;
 USING_NS_CC;
 // usning namespace audio engie
@@ -23,8 +24,9 @@ using namespace CocosDenshion;
 #include "Player.h"
 
 // Scene 여기아래로 class include 하면 안됨
-#include "InGameScene.h"
 #include "StartScene.h"
+#include "LobbyScene.h"
+#include "InGameScene.h"
 #include "HelloWorldScene.h"
 
 #endif // !_USER_INCLUDE_H

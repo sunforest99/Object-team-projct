@@ -7,19 +7,19 @@ class InGameScene : public Layer
 {
 private:
     // 배경 이미지
-    Sprite* bg1;
-    Sprite* bg2;
+    Sprite* _bg1;
+    Sprite* _bg2;
 
     // Player
-    Player* player;
-    Monster* monster;
-    Meteo* meteo;
+    Player* _player;
+    Monster* _monster;
+    Meteo* _meteo;
 
     std::vector<Monster*> v_monster;
     std::vector<Meteo*> v_meteo;
 
-    bool rkeycheck;
-    bool lkeycheck;
+    bool _rkeycheck;
+    bool _lkeycheck;
 
 public:
     InGameScene();
@@ -40,15 +40,22 @@ public:
     */
     void InitBG();
     /**
-    * @brief object 초기화
+    * @brief Player 초기화
     */
-    void InitObj();
+    void InitPlayer();
 
     /**
     * @brief InGameScene 업데이트
+    * @param int dt 델타 타임 (업데이트 할때 걸려야할 시간)
     */
     void SceneUpdate(float dt);
+    /**
+    * @brief Monster 업데이트
+    */
     void MonsterUpdate(float dt);
+    /**
+    * @brief Meteo 업데이트
+    */
     void MeteoUpdate(float dt);
 
     /**

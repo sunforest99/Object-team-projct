@@ -1,5 +1,8 @@
 #include "stdafx.h"
 
+/**
+* @brief StartScene 생성
+*/
 Scene* StartScene::createScene()
 {
 	auto scene = Scene::create();
@@ -11,6 +14,9 @@ Scene* StartScene::createScene()
 	return scene;
 }
 
+/**
+* @brief Layer 초기화
+*/
 bool StartScene::init()
 {
 	// 오류나면 안됨!!
@@ -27,34 +33,34 @@ bool StartScene::init()
 	audio->playBackgroundMusic("bgm/dragon_flight2.mp3", true);*/
 
 	srand(time(NULL));
-	bgindex = rand() % 3;
-	charindex = rand() % 3;
+	_bgindex = rand() % 3;
+	_charindex = rand() % 3;
 
-	bg1 = Sprite::create(_bgname[bgindex]);
-	bg1->setAnchorPoint(Vec2::ZERO);
-	bg1->setScale(D_BASE_SACLE);
-	bg1->setPosition(Vec2::ZERO);
-	this->addChild(bg1, 0);
+	_bg1 = Sprite::create(_bgname[_bgindex]);
+	_bg1->setAnchorPoint(Vec2::ZERO);
+	_bg1->setScale(D_BASE_SACLE);
+	_bg1->setPosition(Vec2::ZERO);
+	this->addChild(_bg1, OTHER_ZORDER::E_BACKBROUND);
 
-	bg2 = Sprite::create(_bgname[bgindex]);
-	bg2->setAnchorPoint(Vec2::ZERO);
-	bg2->setScale(D_BASE_SACLE);
-	bg2->setPosition(Vec2(0, D_DESIGN_HEIGHT));
-	this->addChild(bg2, 0);
+	_bg2 = Sprite::create(_bgname[_bgindex]);
+	_bg2->setAnchorPoint(Vec2::ZERO);
+	_bg2->setScale(D_BASE_SACLE);
+	_bg2->setPosition(Vec2(0, D_DESIGN_HEIGHT));
+	this->addChild(_bg2, OTHER_ZORDER::E_BACKBROUND);
 
-	logo = Sprite::create("ui/logo.png");
-	logo->setScale(D_BASE_SACLE);
-	logo->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 + 500));
-	this->addChild(logo, 1);
+	_logo = Sprite::create("ui/logo.png");
+	_logo->setScale(D_BASE_SACLE);
+	_logo->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 + 500));
+	this->addChild(_logo, OTHER_ZORDER::E_LOGO);
 
-	character = Sprite::create(_charname[charindex]);
-	character->setScale(1.3f);
-	character->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 - 50));
-	this->addChild(character, 0);
+	_character = Sprite::create(_charname[_charindex]);
+	_character->setScale(1.3f);
+	_character->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 - 50));
+	this->addChild(_character, OTHER_ZORDER::E_STARTSCENE_CHAR);
 
-	label = Label::createWithTTF("Touch to Start", "fonts/Marker Felt.ttf", 70);
-	label->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 - 500));
-	this->addChild(label, 1);
+	_label = Label::createWithTTF("Touch to Start", "fonts/Marker Felt.ttf", 70);
+	_label->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 - 500));
+	this->addChild(_label, OTHER_ZORDER::E_LABEL);
 
 	this->schedule(schedule_selector(StartScene::SceneUpdate), 0.0f);
 
@@ -70,18 +76,18 @@ bool StartScene::init()
  **/
 void StartScene::SceneUpdate(float dt)
 {
-	bg1->setPosition(Vec2(0, bg1->getPositionY() - D_BACKGROUND_SPEED));
-	bg2->setPosition(Vec2(0, bg2->getPositionY() - D_BACKGROUND_SPEED));
-	if (bg1->getPositionY() <= -D_DESIGN_HEIGHT)
+	_bg1->setPosition(Vec2(0, _bg1->getPositionY() - D_BACKGROUND_SPEED));
+	_bg2->setPosition(Vec2(0, _bg2->getPositionY() - D_BACKGROUND_SPEED));
+	if (_bg1->getPositionY() <= -D_DESIGN_HEIGHT)
 	{
-		bg1->setPositionY(D_DESIGN_HEIGHT);
+		_bg1->setPositionY(D_DESIGN_HEIGHT);
 	}
-	if (bg2->getPositionY() <= -D_DESIGN_HEIGHT)
+	if (_bg2->getPositionY() <= -D_DESIGN_HEIGHT)
 	{
-		bg2->setPositionY(D_DESIGN_HEIGHT);
+		_bg2->setPositionY(D_DESIGN_HEIGHT);
 	}
 	
-	label->setOpacity(label->getOpacity() - 3);
+	_label->setOpacity(_label->getOpacity() - 3);
 }
 
 /**
@@ -92,6 +98,6 @@ void StartScene::SceneUpdate(float dt)
 bool StartScene::onTouchBegan(Touch* touch, Event* unused_event)
 {
 	// Scene 전환
-	Director::getInstance()->replaceScene(InGameScene::createScene());
+	Director::getInstance()->replaceScene(LobbyScene::createScene());
 	return true;
 }

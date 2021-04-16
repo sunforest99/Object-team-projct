@@ -16,7 +16,7 @@ public:
 	/**
 	* @brief 각 class 초기화
 	*/
-	virtual void Init() = 0;
+	virtual void InitObject() = 0;
 
 	/**
 	* @brief 각 class 업데이트

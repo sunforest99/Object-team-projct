@@ -45,6 +45,9 @@
     <ClCompile Include="..\Classes\Meteo.cpp">
       <Filter>classes</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\LobbyScene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -82,6 +85,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Meteo.h">
       <Filter>classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\LobbyScene.h">
+      <Filter>scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

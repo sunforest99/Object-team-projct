@@ -5,7 +5,7 @@ Player::Player()
 	_hp = 1;
 }
 
-void Player::Init()
+void Player::InitObject()
 {
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 
@@ -13,7 +13,7 @@ void Player::Init()
 	mainsprite->addSpriteFramesWithFile("player.plist");
 
 	_player = Sprite::createWithSpriteFrameName("pink_body.png");
-	_player->setScale(1.5f);
+	_player->setScale(D_BASE_SACLE);
 	_player->setPosition(Vec2(visibleSize.width /2 , D_PLAYER_HEIGHT));
 
 	// ---- ³¯°³
@@ -41,8 +41,8 @@ void Player::Init()
 	_rwing->runAction(ractionrepeat);
 	_lwing->runAction(lactionrepeat);
 
-	_player->addChild(_rwing, SET_Z_ORDER::E_WINGS);
-	_player->addChild(_lwing, SET_Z_ORDER::E_WINGS);
+	_player->addChild(_rwing, INGAME_ZORDER::E_WINGS);
+	_player->addChild(_lwing, INGAME_ZORDER::E_WINGS);
 
 	this->addChild(_player);
 }

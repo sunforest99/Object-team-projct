@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-void Meteo::Init()
+void Meteo::InitObject()
 {
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 

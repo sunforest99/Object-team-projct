@@ -14,7 +14,7 @@ public:
 	/**
     * @brief Meteo 초기화
     */
-	void Init() override;
+	void InitObject() override;
 
 	/**
 	* @brief Meteo 업데이트

@@ -24,7 +24,7 @@ public:
     /**
    * @brief player 초기화
    */
-    void Init() override;
+    void InitObject() override;
 
     /**
     * @brief player 업데이트

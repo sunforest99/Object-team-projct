@@ -26,7 +26,7 @@ public:
     /**
     * @brief player √ ±‚»≠
     */
-    void Init() override;
+    void InitObject() override;
     
     void DamageInit();
     /**

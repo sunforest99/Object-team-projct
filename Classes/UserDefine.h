@@ -19,7 +19,7 @@
 
 #define RAND_MAX 960
 
-enum SET_Z_ORDER
+enum INGAME_ZORDER
 {
 	E_WINGS = -1,
 	E_BACKGROUND,
@@ -27,6 +27,16 @@ enum SET_Z_ORDER
 	E_METEO = 1,
 	E_MONSTER,
 	E_MONSTER_EYE
+};
+
+enum OTHER_ZORDER
+{
+	E_BACKBROUND = 0,
+	E_STARTSCENE_CHAR = 0,
+	E_LAYER,
+	E_UPLAYER,
+	E_LABEL,
+	E_LOGO,
 };
 
 #endif // !_USER_DEFINE_H
