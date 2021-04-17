@@ -81,7 +81,6 @@ void InGameScene::InitBG()
 	this->addChild(_bg2, INGAME_ZORDER::E_BACKGROUND);
 }
 
-
 /**
 * @brief Player 초기화
 */
@@ -153,8 +152,15 @@ void InGameScene::SceneUpdate(float dt)
 		{
 			// TODO 충돌 되었을때 처리
 			// player->ReduceHp(1);
-			this->removeChild((*it));
-			it = v_monster.erase(it);
+            _coin = new Coin();
+            _coin->InitObject();
+            _coin->GetSprite()->setPosition(Vec2((*it)->GetSprite()->getPositionX(), (*it)->GetSprite()->getPositionY() + 70.f));
+            this->addChild(_coin, 10);
+            v_coin.push_back(_coin);
+            _coin->release();
+            
+            this->removeChild((*it));
+            it = v_monster.erase(it);
 		}
 		else if ((*it)->GetSprite()->getPositionY() < -D_DESIGN_HEIGHT * 2)
 		{
@@ -189,6 +195,28 @@ void InGameScene::SceneUpdate(float dt)
 			++it;
 		}
 	}
+    
+    for(auto it = v_coin.begin(); it!= v_coin.end();)
+    {
+        (*it)->Update();
+        
+        if ((*it)->GetSprite()->getBoundingBox().intersectsRect(_player->GetSprite()->getBoundingBox()))
+        {
+            // TODO 충돌 되었을때 처리
+            // player->ReduceHp(1);
+            this->removeChild((*it));
+            it = v_coin.erase(it);
+        }
+        else if ((*it)->GetSprite()->getPositionY() < -D_DESIGN_HEIGHT * 2)
+        {
+            this->removeChild((*it));
+            it = v_coin.erase(it);
+        }
+        else
+        {
+            ++it;
+        }
+    }
 }
 
 /**

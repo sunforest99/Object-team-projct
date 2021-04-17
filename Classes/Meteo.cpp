@@ -2,8 +2,6 @@
 
 void Meteo::InitObject()
 {
-	auto visibleSize = Director::getInstance()->getVisibleSize();
-
 	//메테오 스프라이트 생성
 	_meteo = Sprite::create("meteo.png");
 	//스프라이트 위치 지정

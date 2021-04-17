@@ -20,6 +20,7 @@ using namespace CocosDenshion;
 #include "AppDelegate.h"
 #include "Unit.h"
 #include "monster.h"
+#include "Coin.h"
 #include "Meteo.h"
 #include "Player.h"
 

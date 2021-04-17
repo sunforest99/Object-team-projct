@@ -10,14 +10,16 @@ private:
     Sprite* _bg1;
     Sprite* _bg2;
 
-    // Player
+    // Objects
     Player* _player;
     Monster* _monster;
     Meteo* _meteo;
+    Coin* _coin;
 
     std::vector<Monster*> v_monster;
     std::vector<Meteo*> v_meteo;
-
+    std::vector<Coin*> v_coin;
+    
     bool _rkeycheck;
     bool _lkeycheck;
 
