@@ -37,6 +37,8 @@ bool InGameScene::init()
 
 	log("-----------InGameScene Log Start-----------");
 
+	_money = UserDefault::getInstance()->getIntegerForKey("money");
+	log("money: %d", _money);
 	InitBG();
 	InitPlayer();
 
@@ -196,6 +198,7 @@ void InGameScene::SceneUpdate(float dt)
 		}
 	}
     
+	// 코인, 플레이어 충돌
     for(auto it = v_coin.begin(); it!= v_coin.end();)
     {
         (*it)->Update();
@@ -203,7 +206,8 @@ void InGameScene::SceneUpdate(float dt)
         if ((*it)->GetSprite()->getBoundingBox().intersectsRect(_player->GetSprite()->getBoundingBox()))
         {
             // TODO 충돌 되었을때 처리
-            // player->ReduceHp(1);
+			_money += 10;
+			UserDefault::getInstance()->setIntegerForKey("money", _money);
             this->removeChild((*it));
             it = v_coin.erase(it);
         }
@@ -251,6 +255,10 @@ void InGameScene::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 		_rkeycheck = true;
 	if (keyCode == EventKeyboard::KeyCode::KEY_LEFT_ARROW)
 		_lkeycheck = true;
+
+	// 테스트용
+	if (keyCode == EventKeyboard::KeyCode::KEY_BACKSPACE)
+		Director::getInstance()->replaceScene(LobbyScene::createScene());
 }
 
 void InGameScene::onKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)

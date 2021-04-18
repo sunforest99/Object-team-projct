@@ -48,6 +48,9 @@
     <ClCompile Include="..\Classes\LobbyScene.cpp">
       <Filter>scenes</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Coin.cpp">
+      <Filter>classes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -88,6 +91,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\LobbyScene.h">
       <Filter>scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Coin.h">
+      <Filter>classes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

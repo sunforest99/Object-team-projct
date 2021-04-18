@@ -21,9 +21,14 @@ private:
     // UI
     Label* _playerlabel;
     Label* _bulletlabel;
+    Sprite* _coin;
 
+    Label* _coinlabel;
     ui::Button* _startbtn;
     ui::Button* _upgradebtn;
+
+    char* _moneystring;
+    unsigned int _money;
 public:
     ~LobbyScene();
     /**

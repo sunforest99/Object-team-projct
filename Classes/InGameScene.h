@@ -23,6 +23,8 @@ private:
     bool _rkeycheck;
     bool _lkeycheck;
 
+    unsigned int _money;
+
 public:
     InGameScene();
     ~InGameScene();

@@ -33,6 +33,8 @@ bool LobbyScene::init()
 	log("-----------LobbyScene Log Start-----------");
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 
+	_money = UserDefault::getInstance()->getIntegerForKey("money");
+
 	srand(time(NULL));
 	_bgindex = rand() % 3;
 
@@ -104,7 +106,13 @@ void LobbyScene::UiInit(Size winsize)
 		case ui::Widget::TouchEventType::BEGAN:
 			break;
 		case ui::Widget::TouchEventType::ENDED:
-			log("upgrade");
+			if (_money > 0)
+			{
+				_money -= 10;
+				UserDefault::getInstance()->setIntegerForKey("money", _money);
+				_coinlabel->setString(StringUtils::format("%d", _money));
+				log("upgrade - money : %d", _money);
+			}
 			break;
 		default:
 			break;
@@ -115,6 +123,15 @@ void LobbyScene::UiInit(Size winsize)
 	_upgradebtn->setScale(0.8f);
 	_upgradebtn->setPosition(Vec2(winsize.width / 2, winsize.height / 2 - 350));
 	this->addChild(_upgradebtn, OTHER_ZORDER::E_UPLAYER);
+
+	_coinlabel = Label::create(StringUtils::format("%d",_money) , "fonts/Marker Felt.ttf", 70);
+	_coinlabel->setAnchorPoint(Vec2(0.f,0.5f));
+	_coinlabel->setPosition(Vec2(100.f, winsize.height - 80.f));
+	this->addChild(_coinlabel, OTHER_ZORDER::E_LABEL);
+
+	_coin = Sprite::create("item_coin.png");
+	_coin->setPosition(Vec2(64, winsize.height - 80.f));
+	this->addChild(_coin, OTHER_ZORDER::E_UPLAYER);
 }
 
 
