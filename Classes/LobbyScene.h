@@ -6,6 +6,8 @@
 class LobbyScene : public Layer
 {
 private:
+    Size _visibleSize;
+
     // 배경 이미지 이름
     std::string _bgname[4] = { "background/01.png", "background/02.png", "background/03.png", "background/04.png" };
     int _bgindex;
@@ -43,15 +45,13 @@ public:
 
     /**
      * @brief ui 초기화
-     * @param Size winsize 창의 크기 받음
      */
-    void UiInit(Size winsize);
+    void UiInit();
 
     /**
      * @brief object 초기화
-     * @param Size winsize 창의 크기 받음
      */
-    void objectInit(Size winsize);
+    void objectInit();
 
     /**
      * @brief InGameScene 업데이트

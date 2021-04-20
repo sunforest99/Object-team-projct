@@ -12,17 +12,17 @@ private:
 public:
 
 	/**
-    * @brief Meteo 초기화
+    * @brief Coin 초기화
     */
 	void InitObject() override;
 
 	/**
-	* @brief Meteo 업데이트
+	* @brief Coin 업데이트
 	*/
 	void Update() override;
 
 	/**
-	* @brief _monster 스프라이트 주소 값 리턴
+	* @brief _coin 스프라이트 주소 값 리턴
 	*/
 	Sprite* GetSprite() const override { return _coin; }
 };

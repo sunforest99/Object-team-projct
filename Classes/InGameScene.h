@@ -6,6 +6,9 @@
 class InGameScene : public Layer
 {
 private:
+    
+    Size _visibleSize;
+
     // 배경 이미지
     Sprite* _bg1;
     Sprite* _bg2;
@@ -23,7 +26,16 @@ private:
     bool _rkeycheck;
     bool _lkeycheck;
 
+    unsigned int _addmoney;
     unsigned int _money;
+
+    unsigned int _score;
+
+    // UI
+    Sprite* _coinui;
+
+    Label* _coinlabel;
+    Label* _scorelabel;
 
 public:
     InGameScene();
@@ -47,6 +59,10 @@ public:
     * @brief Player 초기화
     */
     void InitPlayer();
+    /**
+    * @brief Ui 초기화
+    */
+    void InitUi();
 
     /**
     * @brief InGameScene 업데이트

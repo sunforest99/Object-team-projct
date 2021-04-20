@@ -18,6 +18,8 @@ InGameScene::InGameScene()
 {
 	_rkeycheck = false;
 	_lkeycheck = false;
+	_addmoney = 0;
+	_score = 0;
 }
 InGameScene::~InGameScene()
 {
@@ -36,9 +38,11 @@ bool InGameScene::init()
 	}
 
 	log("-----------InGameScene Log Start-----------");
+	_visibleSize = Director::getInstance()->getVisibleSize();
 
 	_money = UserDefault::getInstance()->getIntegerForKey("money");
 	log("money: %d", _money);
+	InitUi();
 	InitBG();
 	InitPlayer();
 
@@ -68,8 +72,6 @@ bool InGameScene::init()
 */
 void InGameScene::InitBG()
 {
-	auto visibleSize = Director::getInstance()->getVisibleSize();
-
 	_bg1 = Sprite::create("background/01.png");
 	_bg1->setAnchorPoint(Vec2::ZERO);
 	_bg1->setScale(D_BASE_SACLE);
@@ -93,6 +95,25 @@ void InGameScene::InitPlayer()
 	_player->InitObject();
 	this->addChild(_player, INGAME_ZORDER::E_PLAYER);
 }
+
+void InGameScene::InitUi()
+{
+	_coinui = Sprite::create("item_coin.png");
+	_coinui->setPosition(Vec2(42.f, _visibleSize.height - 50.f));
+	this->addChild(_coinui, INGAME_ZORDER::E_UI);
+
+	_coinlabel = Label::create(StringUtils::format("%lu", _addmoney), "fonts/Marker Felt.ttf", 50);
+	_coinlabel->setAnchorPoint(Vec2(0.f, 0.5f));
+	_coinlabel->setPosition(Vec2(78.f, _visibleSize.height - 50.f));
+	this->addChild(_coinlabel, INGAME_ZORDER::E_UI);
+
+	_scorelabel = Label::create(StringUtils::format("%lu m", _score), "fonts/Marker Felt.ttf", 50);
+	_scorelabel->setAnchorPoint(Vec2(1.f, 0.5f));
+	_scorelabel->setColor(Color3B(203, 230, 238));
+	_scorelabel->setPosition(Vec2(_visibleSize.width - 50.f, _visibleSize.height - 50.f));
+	this->addChild(_scorelabel, INGAME_ZORDER::E_UI);
+}
+
 /**
 * @brief Monster 업데이트
 */
@@ -139,9 +160,12 @@ void InGameScene::SceneUpdate(float dt)
 		_bg2->setPositionY(D_DESIGN_HEIGHT);
 	}
 
-	if (_rkeycheck == true && _player->GetSprite()->getPositionX() < D_DESIGN_WIDTH - 125 && _player->GetUnithp() > 0)
+	_score += 1;
+	_scorelabel->setString(StringUtils::format("%lu m", _score));
+
+	if (_rkeycheck == true && _player->GetSprite()->getPositionX() < D_DESIGN_WIDTH - _player->GetSprite()->getContentSize().width && _player->GetUnithp() > 0)
 		_player->AddPosX(10.f);
-	else if (_lkeycheck == true && 0 + 125 < _player->GetSprite()->getPositionX() && _player->GetUnithp() > 0)
+	else if (_lkeycheck == true && _player->GetSprite()->getContentSize().width < _player->GetSprite()->getPositionX() && _player->GetUnithp() > 0)
 		_player->MinPosX(10.f);
 
 	_player->Update();
@@ -157,7 +181,7 @@ void InGameScene::SceneUpdate(float dt)
             _coin = new Coin();
             _coin->InitObject();
             _coin->GetSprite()->setPosition(Vec2((*it)->GetSprite()->getPositionX(), (*it)->GetSprite()->getPositionY() + 70.f));
-            this->addChild(_coin, 10);
+            this->addChild(_coin, E_COIN);
             v_coin.push_back(_coin);
             _coin->release();
             
@@ -206,8 +230,10 @@ void InGameScene::SceneUpdate(float dt)
         if ((*it)->GetSprite()->getBoundingBox().intersectsRect(_player->GetSprite()->getBoundingBox()))
         {
             // TODO 충돌 되었을때 처리
-			_money += 10;
-			UserDefault::getInstance()->setIntegerForKey("money", _money);
+			/*_money += 10;
+			UserDefault::getInstance()->setIntegerForKey("money", _money);*/
+			_addmoney += 10;
+			_coinlabel->setString(StringUtils::format("%d", _addmoney));
             this->removeChild((*it));
             it = v_coin.erase(it);
         }
@@ -238,7 +264,7 @@ bool InGameScene::onTouchBegan(Touch* touch, Event* unused_event)
 
 void InGameScene::onTouchMoved(Touch* touch, Event* unused_event)
 {
-	if (0 + 125 < touch->getLocation().x && touch->getLocation().x < D_DESIGN_WIDTH - 125 && _player->GetUnithp() > 0)
+	if (_player->GetSprite()->getContentSize().width < touch->getLocation().x && touch->getLocation().x < D_DESIGN_WIDTH - _player->GetSprite()->getContentSize().width && _player->GetUnithp() > 0)
 	{
 		_player->SetPos(touch->getLocation());
 	}

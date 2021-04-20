@@ -31,7 +31,7 @@ bool LobbyScene::init()
 	}
 
 	log("-----------LobbyScene Log Start-----------");
-	auto visibleSize = Director::getInstance()->getVisibleSize();
+	_visibleSize = Director::getInstance()->getVisibleSize();
 
 	_money = UserDefault::getInstance()->getIntegerForKey("money");
 
@@ -52,12 +52,12 @@ bool LobbyScene::init()
 
 	_layer = Sprite::create("layer.png");
 	_layer->setScale(100.f);
-	_layer->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
+	_layer->setPosition(Vec2(_visibleSize.width / 2, _visibleSize.height / 2));
 	_layer->setOpacity(200);
 	this->addChild(_layer, OTHER_ZORDER::E_LAYER);
 
-	UiInit(visibleSize);
-	objectInit(visibleSize);
+	UiInit();
+	objectInit();
 
 	this->schedule(schedule_selector(LobbyScene::SceneUpdate), 0.0f);
 
@@ -68,14 +68,14 @@ bool LobbyScene::init()
  * @brief ui 초기화
  * @param Size winsize 창의 크기 받음
  */
-void LobbyScene::UiInit(Size winsize)
+void LobbyScene::UiInit()
 {
 	_playerlabel = Label::createWithTTF("Player", "fonts/Marker Felt.ttf", 70);
-	_playerlabel->setPosition(Vec2(winsize.width / 2 - 250.f, winsize.height / 2 + 300.f));
+	_playerlabel->setPosition(Vec2(_visibleSize.width / 2 - 250.f, _visibleSize.height / 2 + 300.f));
 	this->addChild(_playerlabel, OTHER_ZORDER::E_LABEL);
 
 	_bulletlabel = Label::createWithTTF("Bullet", "fonts/Marker Felt.ttf", 70);
-	_bulletlabel->setPosition(Vec2(winsize.width / 2 + 250.f, winsize.height / 2 + 300.f));
+	_bulletlabel->setPosition(Vec2(_visibleSize.width / 2 + 250.f, _visibleSize.height / 2 + 300.f));
 	this->addChild(_bulletlabel, OTHER_ZORDER::E_LABEL);
 
 	// ---- 게임 시작 버튼
@@ -95,7 +95,7 @@ void LobbyScene::UiInit(Size winsize)
 	_startbtn->setTitleText("Game Start");
 	_startbtn->setTitleFontSize(50.f);
 	_startbtn->setScale(0.8f);
-	_startbtn->setPosition(Vec2(winsize.width / 2, winsize.height / 2 - 500));
+	_startbtn->setPosition(Vec2(_visibleSize.width / 2, _visibleSize.height / 2 - 500));
 	this->addChild(_startbtn, OTHER_ZORDER::E_UPLAYER);
 
 	// ----  총알 업그래이드 버튼
@@ -110,8 +110,8 @@ void LobbyScene::UiInit(Size winsize)
 			{
 				_money -= 10;
 				UserDefault::getInstance()->setIntegerForKey("money", _money);
-				_coinlabel->setString(StringUtils::format("%d", _money));
-				log("upgrade - money : %d", _money);
+				_coinlabel->setString(StringUtils::format("%lu", _money));
+				log("upgrade - money : %lu", _money);
 			}
 			break;
 		default:
@@ -121,16 +121,16 @@ void LobbyScene::UiInit(Size winsize)
 	_upgradebtn->setTitleText("Bullet Upgrade");
 	_upgradebtn->setTitleFontSize(50.f);
 	_upgradebtn->setScale(0.8f);
-	_upgradebtn->setPosition(Vec2(winsize.width / 2, winsize.height / 2 - 350));
+	_upgradebtn->setPosition(Vec2(_visibleSize.width / 2, _visibleSize.height / 2 - 350));
 	this->addChild(_upgradebtn, OTHER_ZORDER::E_UPLAYER);
 
-	_coinlabel = Label::create(StringUtils::format("%d",_money) , "fonts/Marker Felt.ttf", 70);
+	_coinlabel = Label::create(StringUtils::format("%lu",_money) , "fonts/Marker Felt.ttf", 70);
 	_coinlabel->setAnchorPoint(Vec2(0.f,0.5f));
-	_coinlabel->setPosition(Vec2(100.f, winsize.height - 80.f));
+	_coinlabel->setPosition(Vec2(100.f, _visibleSize.height - 80.f));
 	this->addChild(_coinlabel, OTHER_ZORDER::E_LABEL);
 
 	_coin = Sprite::create("item_coin.png");
-	_coin->setPosition(Vec2(64, winsize.height - 80.f));
+	_coin->setPosition(Vec2(64, _visibleSize.height - 80.f));
 	this->addChild(_coin, OTHER_ZORDER::E_UPLAYER);
 }
 
@@ -139,11 +139,11 @@ void LobbyScene::UiInit(Size winsize)
  * @brief object 초기화
  * @param Size winsize 창의 크기 받음
  */
-void LobbyScene::objectInit(Size winsize)
+void LobbyScene::objectInit()
 {
 	_player = new Player();
 	_player->InitObject();
-	_player->GetSprite()->setPosition(Vec2(winsize.width / 2 - 250.f, winsize.height / 2 + 150.f));
+	_player->GetSprite()->setPosition(Vec2(_visibleSize.width / 2 - 250.f, _visibleSize.height / 2 + 150.f));
 	this->addChild(_player, OTHER_ZORDER::E_UPLAYER);
 }
 
