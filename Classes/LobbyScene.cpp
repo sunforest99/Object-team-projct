@@ -148,7 +148,7 @@ void LobbyScene::objectInit()
 }
 
 /**
- * @brief StartScene 업데이트 부분 이미지 움직임 담당
+ * @brief LobbyScene 업데이트 부분 이미지 움직임 담당
  * @param int dt 델타 타임 (업데이트 할때 걸려야할 시간)
  */
 void LobbyScene::SceneUpdate(float dt)

@@ -29,8 +29,8 @@ bool StartScene::init()
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 	
 	// 테스트용
-	auto userdefaults = cocos2d::UserDefault::getInstance();
-	userdefaults->setIntegerForKey("money", 1000);
+	UserDefault::getInstance()->setIntegerForKey("money", 1000);
+
 	// 배경음악 시끄러워서 주석처리
 	/*auto audio = SimpleAudioEngine::getInstance();
 	audio->playBackgroundMusic("bgm/dragon_flight2.mp3", true);*/

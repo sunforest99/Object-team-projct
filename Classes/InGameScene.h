@@ -6,7 +6,7 @@
 class InGameScene : public Layer
 {
 private:
-    
+    // 화면 사이즈
     Size _visibleSize;
 
     // 배경 이미지
@@ -23,12 +23,15 @@ private:
     std::vector<Meteo*> v_meteo;
     std::vector<Coin*> v_coin;
     
+    // 키입력
     bool _rkeycheck;
     bool _lkeycheck;
 
+    // 돈(코인)
     unsigned int _addmoney;
     unsigned int _money;
 
+    // 점수 (미터)
     unsigned int _score;
 
     // UI

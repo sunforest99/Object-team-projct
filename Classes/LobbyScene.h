@@ -34,7 +34,7 @@ private:
 public:
     ~LobbyScene();
     /**
-     * @brief StartScene 持失
+     * @brief LobbyScene 持失
      */
     static Scene* createScene();
 

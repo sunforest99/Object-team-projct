@@ -28,6 +28,7 @@ using namespace CocosDenshion;
 #include "StartScene.h"
 #include "LobbyScene.h"
 #include "InGameScene.h"
+#include "EndScene.h"
 #include "HelloWorldScene.h"
 
 #endif // !_USER_INCLUDE_H

@@ -178,15 +178,15 @@ void InGameScene::SceneUpdate(float dt)
 		{
 			// TODO 충돌 되었을때 처리
 			// player->ReduceHp(1);
-            _coin = new Coin();
-            _coin->InitObject();
-            _coin->GetSprite()->setPosition(Vec2((*it)->GetSprite()->getPositionX(), (*it)->GetSprite()->getPositionY() + 70.f));
-            this->addChild(_coin, E_COIN);
-            v_coin.push_back(_coin);
-            _coin->release();
-            
-            this->removeChild((*it));
-            it = v_monster.erase(it);
+			_coin = new Coin();
+			_coin->InitObject();
+			_coin->GetSprite()->setPosition(Vec2((*it)->GetSprite()->getPositionX(), (*it)->GetSprite()->getPositionY() + 70.f));
+			this->addChild(_coin, E_COIN);
+			v_coin.push_back(_coin);
+			_coin->release();
+
+			this->removeChild((*it));
+			it = v_monster.erase(it);
 		}
 		else if ((*it)->GetSprite()->getPositionY() < -D_DESIGN_HEIGHT * 2)
 		{
@@ -221,32 +221,32 @@ void InGameScene::SceneUpdate(float dt)
 			++it;
 		}
 	}
-    
+
 	// 코인, 플레이어 충돌
-    for(auto it = v_coin.begin(); it!= v_coin.end();)
-    {
-        (*it)->Update();
-        
-        if ((*it)->GetSprite()->getBoundingBox().intersectsRect(_player->GetSprite()->getBoundingBox()))
-        {
-            // TODO 충돌 되었을때 처리
+	for (auto it = v_coin.begin(); it != v_coin.end();)
+	{
+		(*it)->Update();
+
+		if ((*it)->GetSprite()->getBoundingBox().intersectsRect(_player->GetSprite()->getBoundingBox()))
+		{
+			// TODO 충돌 되었을때 처리
 			/*_money += 10;
 			UserDefault::getInstance()->setIntegerForKey("money", _money);*/
 			_addmoney += 10;
 			_coinlabel->setString(StringUtils::format("%d", _addmoney));
-            this->removeChild((*it));
-            it = v_coin.erase(it);
-        }
-        else if ((*it)->GetSprite()->getPositionY() < -D_DESIGN_HEIGHT * 2)
-        {
-            this->removeChild((*it));
-            it = v_coin.erase(it);
-        }
-        else
-        {
-            ++it;
-        }
-    }
+			this->removeChild((*it));
+			it = v_coin.erase(it);
+		}
+		else if ((*it)->GetSprite()->getPositionY() < -D_DESIGN_HEIGHT * 2)
+		{
+			this->removeChild((*it));
+			it = v_coin.erase(it);
+		}
+		else
+		{
+			++it;
+		}
+	}
 }
 
 /**
@@ -282,9 +282,18 @@ void InGameScene::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 	if (keyCode == EventKeyboard::KeyCode::KEY_LEFT_ARROW)
 		_lkeycheck = true;
 
-	// 테스트용
+	// 테스트용 =========================================================
 	if (keyCode == EventKeyboard::KeyCode::KEY_BACKSPACE)
 		Director::getInstance()->replaceScene(LobbyScene::createScene());
+
+	if (keyCode == EventKeyboard::KeyCode::KEY_SPACE)
+		Director::getInstance()->replaceScene(EndScene::createScene());
+
+	if (keyCode == EventKeyboard::KeyCode::KEY_1)
+		UserDefault::getInstance()->setIntegerForKey("score", 10);
+	if (keyCode == EventKeyboard::KeyCode::KEY_2)
+		UserDefault::getInstance()->setIntegerForKey("score", 100);
+	// =================================================================
 }
 
 void InGameScene::onKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
