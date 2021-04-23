@@ -27,6 +27,15 @@ private:
     Label* _scorelabel;
     Label* _hightscorelabel;
 
+    // 돈 올라가는 애니메이션 딜레이
+    float _delay;
+
+    unsigned int _addmoney;
+    unsigned int _money;
+    Sprite* _coin;
+
+    Label* _coinlable;
+
     // 재시작 버튼
     ui::Button* _restartbtn;
 
@@ -48,8 +57,15 @@ public:
 
     /**
     * @brief InGameScene 업데이트
+    * @param float dt 델타 타임 (업데이트 할때 걸려야할 시간)
     */
     void SceneUpdate(float dt);
+
+    /**
+    * @brief 돈올라가는 애니메이션
+    * @param float dt 델타 타임 (업데이트 할때 걸려야할 시간)
+    */
+    void Addmoney(float dt);
 
     // implement the "static create()" method manually
     CREATE_FUNC(EndScene);

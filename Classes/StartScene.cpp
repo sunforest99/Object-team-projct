@@ -28,9 +28,12 @@ bool StartScene::init()
 	log("-----------StartScene Log Start-----------");
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 	
+	auto mainsprite = SpriteFrameCache::getInstance();
+	mainsprite->addSpriteFramesWithFile("ui/ui.plist");
+
 	// 테스트용
 	UserDefault::getInstance()->setIntegerForKey("money", 1000);
-
+	UserDefault::getInstance()->setIntegerForKey("addmoney", 0);
 	// 배경음악 시끄러워서 주석처리
 	/*auto audio = SimpleAudioEngine::getInstance();
 	audio->playBackgroundMusic("bgm/dragon_flight2.mp3", true);*/
@@ -51,12 +54,12 @@ bool StartScene::init()
 	_bg2->setPosition(Vec2(0, D_DESIGN_HEIGHT));
 	this->addChild(_bg2, OTHER_ZORDER::E_BACKBROUND);
 
-	_logo = Sprite::create("ui/logo.png");
+	_logo = Sprite::createWithSpriteFrameName("logo.png");
 	_logo->setScale(D_BASE_SACLE);
 	_logo->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 + 500));
 	this->addChild(_logo, OTHER_ZORDER::E_LOGO);
 
-	_character = Sprite::create(_charname[_charindex]);
+	_character = Sprite::createWithSpriteFrameName(_charname[_charindex]);
 	_character->setScale(1.3f);
 	_character->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 - 50));
 	this->addChild(_character, OTHER_ZORDER::E_STARTSCENE_CHAR);

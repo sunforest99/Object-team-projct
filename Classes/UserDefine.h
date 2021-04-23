@@ -17,7 +17,9 @@
 // player setting height
 #define D_PLAYER_HEIGHT 350.f
 
-#define RAND_MAX 960
+#define D_RAND_MAX 960
+
+#define D_ADDMONEY 10
 
 enum INGAME_ZORDER
 {

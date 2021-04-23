@@ -6,9 +6,9 @@ void Meteo::InitObject()
 	_meteo = Sprite::create("meteo.png");
 	//스프라이트 위치 지정
 	srand(time(NULL));
-	_meteo->setPosition(Vec2(rand() % RAND_MAX, D_DESIGN_HEIGHT));
+	_meteo->setPosition(Vec2(rand() % D_RAND_MAX, D_DESIGN_HEIGHT));
 	//객체 추가
-	this->addChild(_meteo);
+	this->addChild(_meteo, INGAME_ZORDER::E_METEO);
 }
 
 void Meteo::Update()

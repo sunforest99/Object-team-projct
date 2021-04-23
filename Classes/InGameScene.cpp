@@ -96,6 +96,9 @@ void InGameScene::InitPlayer()
 	this->addChild(_player, INGAME_ZORDER::E_PLAYER);
 }
 
+/**
+* @brief Ui 초기화
+*/
 void InGameScene::InitUi()
 {
 	_coinui = Sprite::create("item_coin.png");
@@ -107,7 +110,7 @@ void InGameScene::InitUi()
 	_coinlabel->setPosition(Vec2(78.f, _visibleSize.height - 50.f));
 	this->addChild(_coinlabel, INGAME_ZORDER::E_UI);
 
-	_scorelabel = Label::create(StringUtils::format("%lu m", _score), "fonts/Marker Felt.ttf", 50);
+	_scorelabel = Label::create(StringUtils::format("%lu M", _score), "fonts/Marker Felt.ttf", 50);
 	_scorelabel->setAnchorPoint(Vec2(1.f, 0.5f));
 	_scorelabel->setColor(Color3B(203, 230, 238));
 	_scorelabel->setPosition(Vec2(_visibleSize.width - 50.f, _visibleSize.height - 50.f));
@@ -116,6 +119,7 @@ void InGameScene::InitUi()
 
 /**
 * @brief Monster 업데이트
+* @param float dt 델타 타임 (업데이트 할때 걸려야할 시간)
 */
 void InGameScene::MonsterUpdate(float dt)
 {
@@ -124,7 +128,6 @@ void InGameScene::MonsterUpdate(float dt)
 		_monster = new Monster();
 		_monster->InitObject();
 		_monster->SpriteSetPotionX(128 + 224 * i);
-		log("y: %f", _monster->GetSprite()->getPositionY());
 		this->addChild(_monster, INGAME_ZORDER::E_MONSTER);
 		v_monster.push_back(_monster);
 		_monster->release();
@@ -133,9 +136,11 @@ void InGameScene::MonsterUpdate(float dt)
 
 /**
 * @brief Meteo 업데이트
+* @param float dt 델타 타임 (업데이트 할때 걸려야할 시간)
 */
 void InGameScene::MeteoUpdate(float dt)
 {
+	log("init meteo");
 	_meteo = new Meteo();
 	_meteo->InitObject();
 	this->addChild(_meteo, INGAME_ZORDER::E_METEO);
@@ -145,7 +150,7 @@ void InGameScene::MeteoUpdate(float dt)
 
 /**
 * @brief InGameScene 업데이트 부분 이미지 움직임 담당
-* @param int dt 델타 타임 (업데이트 할때 걸려야할 시간)
+* @param float dt 델타 타임 (업데이트 할때 걸려야할 시간)
 **/
 void InGameScene::SceneUpdate(float dt)
 {
@@ -161,7 +166,7 @@ void InGameScene::SceneUpdate(float dt)
 	}
 
 	_score += 1;
-	_scorelabel->setString(StringUtils::format("%lu m", _score));
+	_scorelabel->setString(StringUtils::format("%lu M", _score));
 
 	if (_rkeycheck == true && _player->GetSprite()->getPositionX() < D_DESIGN_WIDTH - _player->GetSprite()->getContentSize().width && _player->GetUnithp() > 0)
 		_player->AddPosX(10.f);
@@ -230,10 +235,9 @@ void InGameScene::SceneUpdate(float dt)
 		if ((*it)->GetSprite()->getBoundingBox().intersectsRect(_player->GetSprite()->getBoundingBox()))
 		{
 			// TODO 충돌 되었을때 처리
-			/*_money += 10;
-			UserDefault::getInstance()->setIntegerForKey("money", _money);*/
-			_addmoney += 10;
-			_coinlabel->setString(StringUtils::format("%d", _addmoney));
+			_addmoney += D_ADDMONEY;
+			_coinlabel->setString(StringUtils::format("%lu", _addmoney));
+			UserDefault::getInstance()->setIntegerForKey("addmoney", _addmoney);
 			this->removeChild((*it));
 			it = v_coin.erase(it);
 		}
@@ -262,6 +266,9 @@ bool InGameScene::onTouchBegan(Touch* touch, Event* unused_event)
 	return true;
 }
 
+/**
+* @brief 터치 되었을때 (마우스 드래그)
+*/
 void InGameScene::onTouchMoved(Touch* touch, Event* unused_event)
 {
 	if (_player->GetSprite()->getContentSize().width < touch->getLocation().x && touch->getLocation().x < D_DESIGN_WIDTH - _player->GetSprite()->getContentSize().width && _player->GetUnithp() > 0)

@@ -50,7 +50,7 @@ bool LobbyScene::init()
 	_bg2->setPosition(Vec2(0, D_DESIGN_HEIGHT));
 	this->addChild(_bg2, OTHER_ZORDER::E_BACKBROUND);
 
-	_layer = Sprite::create("layer.png");
+	_layer = Sprite::createWithSpriteFrameName("layer.png");
 	_layer->setScale(100.f);
 	_layer->setPosition(Vec2(_visibleSize.width / 2, _visibleSize.height / 2));
 	_layer->setOpacity(200);
@@ -79,7 +79,7 @@ void LobbyScene::UiInit()
 	this->addChild(_bulletlabel, OTHER_ZORDER::E_LABEL);
 
 	// ---- 게임 시작 버튼
-	_startbtn = ui::Button::create("ui/btn_restart_n.png","ui/btn_restart_c.png");
+	_startbtn = ui::Button::create("btn_restart_n.png", "btn_restart_c.png", ui::Widget::TextureResType::PLIST);
 	_startbtn->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) {
 		switch (type)
 		{
@@ -99,7 +99,7 @@ void LobbyScene::UiInit()
 	this->addChild(_startbtn, OTHER_ZORDER::E_UPLAYER);
 
 	// ----  총알 업그래이드 버튼
-	_upgradebtn = ui::Button::create("ui/btn_restart_n.png", "ui/btn_restart_c.png");
+	_upgradebtn = ui::Button::create("btn_restart_n.png", "btn_restart_c.png", ui::Widget::TextureResType::PLIST);
 	_upgradebtn->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) {
 		switch (type)
 		{

@@ -84,6 +84,10 @@ public:
                           const std::string& disableImage = "",
                           TextureResType texType = TextureResType::LOCAL);
 
+    // 태양이가 바꾼거
+    static Button* create(const std::string& normalImage,
+        const std::string& selectedImage = "",
+        TextureResType texType = TextureResType::LOCAL);
     /**
      * Load textures for button.
      *
@@ -97,6 +101,10 @@ public:
                       const std::string& disabled = "",
                       TextureResType texType = TextureResType::LOCAL);
 
+    // 태양이가 바꾼거
+    void loadTextures(const std::string& normal,
+        const std::string& selected,
+        TextureResType texType = TextureResType::LOCAL);
     /**
      * Load normal state texture for button.
      *
@@ -319,6 +327,9 @@ CC_CONSTRUCTOR_ACCESS:
                       const std::string& selectedImage = "",
                       const std::string& disableImage = "",
                       TextureResType texType = TextureResType::LOCAL);
+    virtual bool init(const std::string& normalImage,
+        const std::string& selectedImage = "",
+        TextureResType texType = TextureResType::LOCAL);
 
     virtual Size getNormalTextureSize() const;
 

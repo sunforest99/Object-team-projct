@@ -108,6 +108,21 @@ Button* Button::create(const std::string &normalImage,
     return nullptr;
 }
 
+// 태양이가 바꾼거
+Button* Button::create(const std::string& normalImage,
+    const std::string& selectedImage,
+    TextureResType texType)
+{
+    Button* btn = new (std::nothrow) Button;
+    if (btn && btn->init(normalImage, selectedImage, texType))
+    {
+        btn->autorelease();
+        return btn;
+    }
+    CC_SAFE_DELETE(btn);
+    return nullptr;
+}
+
 bool Button::init(const std::string &normalImage,
                   const std::string& selectedImage ,
                   const std::string& disableImage,
@@ -121,6 +136,22 @@ bool Button::init(const std::string &normalImage,
 
     loadTextures(normalImage, selectedImage, disableImage, texType);
     
+    return true;
+}
+
+// 태양이가 바꾼거
+bool Button::init(const std::string& normalImage,
+    const std::string& selectedImage,
+    TextureResType texType)
+{
+
+    // invoke an overridden init() at first
+    if (!Widget::init()) {
+        return false;
+    }
+
+    loadTextures(normalImage, selectedImage, texType);
+
     return true;
 }
 
@@ -251,6 +282,15 @@ void Button::loadTextures(const std::string& normal,
     loadTextureNormal(normal,texType);
     loadTexturePressed(selected,texType);
     loadTextureDisabled(disabled,texType);
+}
+
+// 태양이가 바꾼거
+void Button::loadTextures(const std::string& normal,
+    const std::string& selected,
+    TextureResType texType)
+{
+    loadTextureNormal(normal, texType);
+    loadTexturePressed(selected, texType);
 }
 
 void Button::loadTextureNormal(const std::string& normal,TextureResType texType)

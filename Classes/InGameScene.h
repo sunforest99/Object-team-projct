@@ -69,15 +69,17 @@ public:
 
     /**
     * @brief InGameScene 업데이트
-    * @param int dt 델타 타임 (업데이트 할때 걸려야할 시간)
+    * @param float dt 델타 타임 (업데이트 할때 걸려야할 시간)
     */
     void SceneUpdate(float dt);
     /**
     * @brief Monster 업데이트
+    * @param float dt 델타 타임 (업데이트 할때 걸려야할 시간)
     */
     void MonsterUpdate(float dt);
     /**
     * @brief Meteo 업데이트
+    * @param float dt 델타 타임 (업데이트 할때 걸려야할 시간)
     */
     void MeteoUpdate(float dt);
 
