@@ -13,7 +13,6 @@ git bash 에 입력
 > git pull
 
 ### 프로젝트 올리는 방법
-프로젝트 폴더에서 cocos2d 폴더 뺀후 <br>
 프로젝트 폴더에서 우클릭 git bash here 클릭<br>
 git bash 에 입력
 > git add *<br>
