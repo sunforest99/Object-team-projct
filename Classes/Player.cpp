@@ -22,8 +22,8 @@ void Player::InitObject()
 	
 	_parent = _player->getContentSize();
 
-	_lwing->setPosition(Vec2(_parent.width / 2 - 40.f, _parent.height / 2));
-	_rwing->setPosition(Vec2(_parent.width / 2 + 40.f, _parent.height / 2));
+	_lwing->setPosition(Vec2(_parent.width / 2.f - 40.f, _parent.height / 2.f));
+	_rwing->setPosition(Vec2(_parent.width / 2.f + 40.f, _parent.height / 2.f));
 
 	_rwing->setFlipX(true);
 

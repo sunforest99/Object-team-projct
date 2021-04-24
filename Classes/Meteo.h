@@ -9,6 +9,8 @@ private:
 	// 메테오 이미지
 	Sprite* _meteo;
 
+	int _rand;
+
 public:
 
 	/**

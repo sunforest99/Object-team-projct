@@ -81,7 +81,7 @@ void InGameScene::InitBG()
 	_bg2 = Sprite::create("background/01.png");
 	_bg2->setAnchorPoint(Vec2::ZERO);
 	_bg2->setScale(D_BASE_SACLE);
-	_bg2->setPosition(Vec2(0, D_DESIGN_HEIGHT));
+	_bg2->setPosition(Vec2(0.f, D_DESIGN_HEIGHT));
 	this->addChild(_bg2, INGAME_ZORDER::E_BACKGROUND);
 }
 
@@ -105,12 +105,12 @@ void InGameScene::InitUi()
 	_coinui->setPosition(Vec2(42.f, _visibleSize.height - 50.f));
 	this->addChild(_coinui, INGAME_ZORDER::E_UI);
 
-	_coinlabel = Label::create(StringUtils::format("%lu", _addmoney), "fonts/Marker Felt.ttf", 50);
+	_coinlabel = Label::create(StringUtils::format("%lu", _addmoney), "fonts/Marker Felt.ttf", 50.f);
 	_coinlabel->setAnchorPoint(Vec2(0.f, 0.5f));
 	_coinlabel->setPosition(Vec2(78.f, _visibleSize.height - 50.f));
 	this->addChild(_coinlabel, INGAME_ZORDER::E_UI);
 
-	_scorelabel = Label::create(StringUtils::format("%lu M", _score), "fonts/Marker Felt.ttf", 50);
+	_scorelabel = Label::create(StringUtils::format("%lu M", _score), "fonts/Marker Felt.ttf", 50.f);
 	_scorelabel->setAnchorPoint(Vec2(1.f, 0.5f));
 	_scorelabel->setColor(Color3B(203, 230, 238));
 	_scorelabel->setPosition(Vec2(_visibleSize.width - 50.f, _visibleSize.height - 50.f));
@@ -127,7 +127,7 @@ void InGameScene::MonsterUpdate(float dt)
 	{
 		_monster = new Monster();
 		_monster->InitObject();
-		_monster->SpriteSetPotionX(128 + 224 * i);
+		_monster->SpriteSetPotionX(128.f + 224.f * i);
 		this->addChild(_monster, INGAME_ZORDER::E_MONSTER);
 		v_monster.push_back(_monster);
 		_monster->release();
@@ -140,7 +140,6 @@ void InGameScene::MonsterUpdate(float dt)
 */
 void InGameScene::MeteoUpdate(float dt)
 {
-	log("init meteo");
 	_meteo = new Meteo();
 	_meteo->InitObject();
 	this->addChild(_meteo, INGAME_ZORDER::E_METEO);
@@ -154,8 +153,8 @@ void InGameScene::MeteoUpdate(float dt)
 **/
 void InGameScene::SceneUpdate(float dt)
 {
-	_bg1->setPosition(Vec2(0, _bg1->getPositionY() - D_BACKGROUND_SPEED));
-	_bg2->setPosition(Vec2(0, _bg2->getPositionY() - D_BACKGROUND_SPEED));
+	_bg1->setPosition(Vec2(0.f, _bg1->getPositionY() - D_BACKGROUND_SPEED));
+	_bg2->setPosition(Vec2(0.f, _bg2->getPositionY() - D_BACKGROUND_SPEED));
 	if (_bg1->getPositionY() <= -D_DESIGN_HEIGHT)
 	{
 		_bg1->setPositionY(D_DESIGN_HEIGHT);
@@ -193,7 +192,7 @@ void InGameScene::SceneUpdate(float dt)
 			this->removeChild((*it));
 			it = v_monster.erase(it);
 		}
-		else if ((*it)->GetSprite()->getPositionY() < -D_DESIGN_HEIGHT * 2)
+		else if ((*it)->GetSprite()->getPositionY() < -D_DESIGN_HEIGHT)
 		{
 			this->removeChild((*it));
 			it = v_monster.erase(it);
@@ -216,7 +215,7 @@ void InGameScene::SceneUpdate(float dt)
 			this->removeChild((*it));
 			it = v_meteo.erase(it);
 		}
-		else if ((*it)->GetSprite()->getPositionY() < -D_DESIGN_HEIGHT * 2)
+		else if ((*it)->GetSprite()->getPositionY() < -D_DESIGN_HEIGHT)
 		{
 			this->removeChild((*it));
 			it = v_meteo.erase(it);
@@ -241,7 +240,7 @@ void InGameScene::SceneUpdate(float dt)
 			this->removeChild((*it));
 			it = v_coin.erase(it);
 		}
-		else if ((*it)->GetSprite()->getPositionY() < -D_DESIGN_HEIGHT * 2)
+		else if ((*it)->GetSprite()->getPositionY() < -D_DESIGN_HEIGHT)
 		{
 			this->removeChild((*it));
 			it = v_coin.erase(it);

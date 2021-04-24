@@ -22,8 +22,8 @@ void Monster::InitObject()
 
 	_parent = _monster->getContentSize();
 
-	_lwing->setPosition(Vec2(_parent.width / 2 - 43.f, _parent.height / 2));
-	_rwing->setPosition(Vec2(_parent.width / 2 + 43.f, _parent.height / 2));
+	_lwing->setPosition(Vec2(_parent.width / 2.f - 43.f, _parent.height / 2.f));
+	_rwing->setPosition(Vec2(_parent.width / 2.f + 43.f, _parent.height / 2.f));
 
 	_rwing->setFlipX(true);
 
@@ -51,8 +51,8 @@ void Monster::InitObject()
 	_reye->setFlipX(true);
 	_parent = _monster->getContentSize();
 
-	_leye->setPosition(Vec2(_parent.width / 2 - 15.f, _parent.height / 2));
-	_reye->setPosition(Vec2(_parent.width / 2 + 15.f, _parent.height / 2));
+	_leye->setPosition(Vec2(_parent.width / 2.f - 15.f, _parent.height / 2.f));
+	_reye->setPosition(Vec2(_parent.width / 2.f + 15.f, _parent.height / 2.f));
 
 	_monster->addChild(_leye, INGAME_ZORDER::E_MONSTER_EYE);
 	_monster->addChild(_reye, INGAME_ZORDER::E_MONSTER_EYE);
@@ -64,8 +64,8 @@ void Monster::InitObject()
 	_reyebrow->setFlipX(true);
 	_parent = _monster->getContentSize();
 
-	_leyebrow->setPosition(Vec2(_parent.width / 2 - 15.f, _parent.height / 2));
-	_reyebrow->setPosition(Vec2(_parent.width / 2 + 15.f, _parent.height / 2));
+	_leyebrow->setPosition(Vec2(_parent.width / 2.f - 15.f, _parent.height / 2.f));
+	_reyebrow->setPosition(Vec2(_parent.width / 2.f + 15.f, _parent.height / 2.f));
 
 	_monster->addChild(_leyebrow, INGAME_ZORDER::E_MONSTER_EYE);
 	_monster->addChild(_reyebrow, INGAME_ZORDER::E_MONSTER_EYE);

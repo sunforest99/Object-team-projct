@@ -6,7 +6,8 @@ void Meteo::InitObject()
 	_meteo = Sprite::create("meteo.png");
 	//스프라이트 위치 지정
 	srand(time(NULL));
-	_meteo->setPosition(Vec2(rand() % D_RAND_MAX, D_DESIGN_HEIGHT));
+	_rand = rand() % D_RAND_MAX + 1;
+	_meteo->setPosition(Vec2(_rand * _meteo->getContentSize().width  * 0.5f, D_DESIGN_HEIGHT));
 	//객체 추가
 	this->addChild(_meteo, INGAME_ZORDER::E_METEO);
 }
@@ -14,5 +15,5 @@ void Meteo::InitObject()
 void Meteo::Update()
 {
 	//메테오가 떨어지는 속도
-	_meteo->setPositionY(_meteo->getPositionY() - 10.f);
+	_meteo->setPositionY(_meteo->getPositionY() - 25.f);
 }

@@ -47,12 +47,12 @@ bool LobbyScene::init()
 	_bg2 = Sprite::create(_bgname[_bgindex]);
 	_bg2->setAnchorPoint(Vec2::ZERO);
 	_bg2->setScale(D_BASE_SACLE);
-	_bg2->setPosition(Vec2(0, D_DESIGN_HEIGHT));
+	_bg2->setPosition(Vec2(0.f, D_DESIGN_HEIGHT));
 	this->addChild(_bg2, OTHER_ZORDER::E_BACKBROUND);
 
 	_layer = Sprite::createWithSpriteFrameName("layer.png");
 	_layer->setScale(100.f);
-	_layer->setPosition(Vec2(_visibleSize.width / 2, _visibleSize.height / 2));
+	_layer->setPosition(Vec2(_visibleSize.width / 2.f, _visibleSize.height / 2.f));
 	_layer->setOpacity(200);
 	this->addChild(_layer, OTHER_ZORDER::E_LAYER);
 
@@ -70,12 +70,12 @@ bool LobbyScene::init()
  */
 void LobbyScene::UiInit()
 {
-	_playerlabel = Label::createWithTTF("Player", "fonts/Marker Felt.ttf", 70);
-	_playerlabel->setPosition(Vec2(_visibleSize.width / 2 - 250.f, _visibleSize.height / 2 + 300.f));
+	_playerlabel = Label::createWithTTF("Player", "fonts/Marker Felt.ttf", 70.f);
+	_playerlabel->setPosition(Vec2(_visibleSize.width / 2.f - 250.f, _visibleSize.height / 2.f + 300.f));
 	this->addChild(_playerlabel, OTHER_ZORDER::E_LABEL);
 
-	_bulletlabel = Label::createWithTTF("Bullet", "fonts/Marker Felt.ttf", 70);
-	_bulletlabel->setPosition(Vec2(_visibleSize.width / 2 + 250.f, _visibleSize.height / 2 + 300.f));
+	_bulletlabel = Label::createWithTTF("Bullet", "fonts/Marker Felt.ttf", 70.f);
+	_bulletlabel->setPosition(Vec2(_visibleSize.width / 2.f + 250.f, _visibleSize.height / 2.f + 300.f));
 	this->addChild(_bulletlabel, OTHER_ZORDER::E_LABEL);
 
 	// ---- 게임 시작 버튼
@@ -95,7 +95,7 @@ void LobbyScene::UiInit()
 	_startbtn->setTitleText("Game Start");
 	_startbtn->setTitleFontSize(50.f);
 	_startbtn->setScale(0.8f);
-	_startbtn->setPosition(Vec2(_visibleSize.width / 2, _visibleSize.height / 2 - 500));
+	_startbtn->setPosition(Vec2(_visibleSize.width / 2.f, _visibleSize.height / 2.f - 500.f));
 	this->addChild(_startbtn, OTHER_ZORDER::E_UPLAYER);
 
 	// ----  총알 업그래이드 버튼
@@ -121,16 +121,16 @@ void LobbyScene::UiInit()
 	_upgradebtn->setTitleText("Bullet Upgrade");
 	_upgradebtn->setTitleFontSize(50.f);
 	_upgradebtn->setScale(0.8f);
-	_upgradebtn->setPosition(Vec2(_visibleSize.width / 2, _visibleSize.height / 2 - 350));
+	_upgradebtn->setPosition(Vec2(_visibleSize.width / 2.f, _visibleSize.height / 2.f - 350.f));
 	this->addChild(_upgradebtn, OTHER_ZORDER::E_UPLAYER);
 
-	_coinlabel = Label::create(StringUtils::format("%lu",_money) , "fonts/Marker Felt.ttf", 70);
+	_coinlabel = Label::create(StringUtils::format("%lu",_money) , "fonts/Marker Felt.ttf", 70.f);
 	_coinlabel->setAnchorPoint(Vec2(0.f,0.5f));
 	_coinlabel->setPosition(Vec2(100.f, _visibleSize.height - 80.f));
 	this->addChild(_coinlabel, OTHER_ZORDER::E_LABEL);
 
 	_coin = Sprite::create("item_coin.png");
-	_coin->setPosition(Vec2(64, _visibleSize.height - 80.f));
+	_coin->setPosition(Vec2(64.f, _visibleSize.height - 80.f));
 	this->addChild(_coin, OTHER_ZORDER::E_UPLAYER);
 }
 
@@ -143,7 +143,7 @@ void LobbyScene::objectInit()
 {
 	_player = new Player();
 	_player->InitObject();
-	_player->GetSprite()->setPosition(Vec2(_visibleSize.width / 2 - 250.f, _visibleSize.height / 2 + 150.f));
+	_player->GetSprite()->setPosition(Vec2(_visibleSize.width / 2.f - 250.f, _visibleSize.height / 2.f + 150.f));
 	this->addChild(_player, OTHER_ZORDER::E_UPLAYER);
 }
 
@@ -153,8 +153,8 @@ void LobbyScene::objectInit()
  */
 void LobbyScene::SceneUpdate(float dt)
 {
-	_bg1->setPosition(Vec2(0, _bg1->getPositionY() - D_BACKGROUND_SPEED));
-	_bg2->setPosition(Vec2(0, _bg2->getPositionY() - D_BACKGROUND_SPEED));
+	_bg1->setPosition(Vec2(0.f, _bg1->getPositionY() - D_BACKGROUND_SPEED));
+	_bg2->setPosition(Vec2(0.f, _bg2->getPositionY() - D_BACKGROUND_SPEED));
 	if (_bg1->getPositionY() <= -D_DESIGN_HEIGHT)
 	{
 		_bg1->setPositionY(D_DESIGN_HEIGHT);

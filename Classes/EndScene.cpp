@@ -59,7 +59,7 @@ bool EndScene::init()
 
 	_layer = Sprite::createWithSpriteFrameName("layer.png");
 	_layer->setScale(100.f);
-	_layer->setPosition(Vec2(_visibleSize.width / 2, _visibleSize.height / 2));
+	_layer->setPosition(Vec2(_visibleSize.width / 2.f, _visibleSize.height / 2.f));
 	_layer->setOpacity(200);
 	this->addChild(_layer, OTHER_ZORDER::E_LAYER);
 
@@ -77,24 +77,24 @@ bool EndScene::init()
 */
 void EndScene::InitUi()
 {
-	_gameoverlabel = Label::createWithTTF("Game Over", "fonts/Marker Felt.ttf", 70);
-	_gameoverlabel->setPosition(Vec2(_visibleSize.width / 2, _visibleSize.height / 2 + 550.f));
+	_gameoverlabel = Label::createWithTTF("Game Over", "fonts/Marker Felt.ttf", 70.f);
+	_gameoverlabel->setPosition(Vec2(_visibleSize.width / 2.f, _visibleSize.height / 2.f + 550.f));
 	this->addChild(_gameoverlabel, OTHER_ZORDER::E_LABEL);
 
-	_hightscoreUi = Label::createWithTTF("Hight Score", "fonts/Marker Felt.ttf", 70);
-	_hightscoreUi->setPosition(Vec2(_visibleSize.width / 2, _visibleSize.height / 2 + 250.f));
+	_hightscoreUi = Label::createWithTTF("Hight Score", "fonts/Marker Felt.ttf", 70.f);
+	_hightscoreUi->setPosition(Vec2(_visibleSize.width / 2.f, _visibleSize.height / 2.f + 250.f));
 	this->addChild(_hightscoreUi, OTHER_ZORDER::E_LABEL);
 
-	_hightscorelabel = Label::createWithTTF(StringUtils::format("%lu", _hightscore), "fonts/Marker Felt.ttf", 70);
-	_hightscorelabel->setPosition(Vec2(_visibleSize.width / 2, _visibleSize.height / 2 + 150.f));
+	_hightscorelabel = Label::createWithTTF(StringUtils::format("%lu", _hightscore), "fonts/Marker Felt.ttf", 70.f);
+	_hightscorelabel->setPosition(Vec2(_visibleSize.width / 2.f, _visibleSize.height / 2.f + 150.f));
 	this->addChild(_hightscorelabel, OTHER_ZORDER::E_LABEL);
 
-	_scoreUi = Label::createWithTTF("Score", "fonts/Marker Felt.ttf", 70);
-	_scoreUi->setPosition(Vec2(_visibleSize.width / 2, _visibleSize.height / 2));
+	_scoreUi = Label::createWithTTF("Score", "fonts/Marker Felt.ttf", 70.f);
+	_scoreUi->setPosition(Vec2(_visibleSize.width / 2.f, _visibleSize.height / 2.f));
 	this->addChild(_scoreUi, OTHER_ZORDER::E_LABEL);
 
-	_scorelabel = Label::createWithTTF(StringUtils::format("%lu", _score), "fonts/Marker Felt.ttf", 70);
-	_scorelabel->setPosition(Vec2(_visibleSize.width / 2, _visibleSize.height / 2 - 100.f));
+	_scorelabel = Label::createWithTTF(StringUtils::format("%lu", _score), "fonts/Marker Felt.ttf", 70.f);
+	_scorelabel->setPosition(Vec2(_visibleSize.width / 2.f, _visibleSize.height / 2.f - 100.f));
 	this->addChild(_scorelabel, OTHER_ZORDER::E_LABEL);
 
 	_restartbtn = ui::Button::create("btn_restart_n.png", "btn_restart_c.png", ui::Widget::TextureResType::PLIST);
@@ -113,15 +113,15 @@ void EndScene::InitUi()
 	_restartbtn->setTitleText("Jump to Lobby");
 	_restartbtn->setTitleFontSize(50.f);
 	_restartbtn->setScale(0.8f);
-	_restartbtn->setPosition(Vec2(_visibleSize.width / 2, _visibleSize.height / 2 - 500.f));
+	_restartbtn->setPosition(Vec2(_visibleSize.width / 2.f, _visibleSize.height / 2.f - 500.f));
 	this->addChild(_restartbtn, OTHER_ZORDER::E_UPLAYER);
 
 	_coin = Sprite::create("item_coin.png");
-	_coin->setPosition(Vec2(_visibleSize.width / 2 - 100, _visibleSize.height / 2 - 250.f));
+	_coin->setPosition(Vec2(_visibleSize.width / 2.f - 100.f, _visibleSize.height / 2.f - 250.f));
 	this->addChild(_coin, OTHER_ZORDER::E_UPLAYER);
 
-	_coinlable = Label::createWithTTF(StringUtils::format("%lu", _money), "fonts/Marker Felt.ttf", 70);
-	_coinlable->setPosition(Vec2(_visibleSize.width / 2, _visibleSize.height / 2 - 250.f));
+	_coinlable = Label::createWithTTF(StringUtils::format("%lu", _money), "fonts/Marker Felt.ttf", 70.f);
+	_coinlable->setPosition(Vec2(_visibleSize.width / 2.f, _visibleSize.height / 2.f - 250.f));
 	this->addChild(_coinlable, OTHER_ZORDER::E_LABEL);
 }
 
