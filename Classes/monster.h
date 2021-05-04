@@ -18,6 +18,8 @@ private:
 
     Sprite* _leyebrow;
     Sprite* _reyebrow;
+    int _rand;
+
 public:
     Monster();  
 

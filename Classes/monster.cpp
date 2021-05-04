@@ -11,14 +11,44 @@ void Monster::InitObject()
 
 	auto mainsprite = SpriteFrameCache::getInstance();
 	mainsprite->addSpriteFramesWithFile("monster.plist");
+	srand(time(NULL));
+	_rand = rand() % 3;
+	switch (_rand) {
+	case 0:
+		_monster = Sprite::createWithSpriteFrameName("dragon_1_body.png");
+		_lwing = Sprite::createWithSpriteFrameName("dragon_1_wing.png");
+		_rwing = Sprite::createWithSpriteFrameName("dragon_1_wing.png");
+		_leyebrow = Sprite::createWithSpriteFrameName("dragon_1_eyebrow.png");
+		_reyebrow = Sprite::createWithSpriteFrameName("dragon_1_eyebrow.png");
+		_hp = 20;
+		break;
+	case 1:
+		_hp = 40;
+		_monster = Sprite::createWithSpriteFrameName("dragon_2_body.png");
+		_lwing = Sprite::createWithSpriteFrameName("dragon_2_wing.png");
+		_rwing = Sprite::createWithSpriteFrameName("dragon_2_wing.png");
+		_leyebrow = Sprite::createWithSpriteFrameName("dragon_2_eyebrow.png");
+		_reyebrow = Sprite::createWithSpriteFrameName("dragon_2_eyebrow.png");
+		break;
+	case 2:
+		_monster = Sprite::createWithSpriteFrameName("dragon_3_body.png");
+		_lwing = Sprite::createWithSpriteFrameName("dragon_3_wing.png");
+		_rwing = Sprite::createWithSpriteFrameName("dragon_3_wing.png");
+		_leyebrow = Sprite::createWithSpriteFrameName("dragon_3_eyebrow.png");
+		_reyebrow = Sprite::createWithSpriteFrameName("dragon_3_eyebrow.png");
+		_hp = 100;
+		break;
 
-	_monster = Sprite::createWithSpriteFrameName("dragon_01_body.png");
+	}
+
 	_monster->setScale(D_BASE_SACLE);
 	_monster->setPositionY(D_DESIGN_HEIGHT);
+	
 
+
+	
 	// --- ³¯°³
-	_lwing = Sprite::createWithSpriteFrameName("dragon_01_wing.png");
-	_rwing = Sprite::createWithSpriteFrameName("dragon_01_wing.png");
+	
 
 	_parent = _monster->getContentSize();
 
@@ -58,8 +88,8 @@ void Monster::InitObject()
 	_monster->addChild(_reye, INGAME_ZORDER::E_MONSTER_EYE);
 
 	// ---- ´«¾Ë
-	_leyebrow = Sprite::createWithSpriteFrameName("dragon_01_eyebrow.png");
-	_reyebrow = Sprite::createWithSpriteFrameName("dragon_01_eyebrow.png");
+	_leyebrow = Sprite::createWithSpriteFrameName("dragon_1_eyebrow.png");
+	_reyebrow = Sprite::createWithSpriteFrameName("dragon_1_eyebrow.png");
 
 	_reyebrow->setFlipX(true);
 	_parent = _monster->getContentSize();
