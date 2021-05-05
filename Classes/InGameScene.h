@@ -17,11 +17,13 @@ private:
     Player* _player;
     Monster* _monster;
     Meteo* _meteo;
+    Bullet* _bullet;
     Coin* _coin;
 
     std::vector<Monster*> v_monster;
     std::vector<Meteo*> v_meteo;
     std::vector<Coin*> v_coin;
+    std::vector<Bullet*> v_bullet;
     
     // 키입력
     bool _rkeycheck;
@@ -82,6 +84,13 @@ public:
     * @param float dt 델타 타임 (업데이트 할때 걸려야할 시간)
     */
     void MeteoUpdate(float dt);
+
+    /**
+    * @brief Bullet 업데이트
+    * @param float dt 델타 타임 (업데이트 할때 걸려야할 시간)
+    */
+    void BulletUpdate(float dt);
+
 
     /**
     * @brief 터치 되었을때 (마우스 눌렀을때)

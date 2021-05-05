@@ -42,6 +42,7 @@ bool InGameScene::init()
 
 	_money = UserDefault::getInstance()->getIntegerForKey("money");
 	log("money: %d", _money);
+
 	InitUi();
 	InitBG();
 	InitPlayer();
@@ -53,6 +54,7 @@ bool InGameScene::init()
 	this->schedule(schedule_selector(InGameScene::SceneUpdate), 0.0f);
 	this->schedule(schedule_selector(InGameScene::MonsterUpdate), 3.0f);
 	this->schedule(schedule_selector(InGameScene::MeteoUpdate), 2.0f);
+	this->schedule(schedule_selector(InGameScene::BulletUpdate), 0.05f);
 
 	// 터치 이벤트를 ONE_BY_ONE 형식으로 받겠다
 	this->setTouchEnabled(true);
@@ -118,6 +120,23 @@ void InGameScene::InitUi()
 }
 
 /**
+  * @brief Bullet 업데이트
+  * @param float dt 델타 타임 (업데이트 할때 걸려야할 시간)
+  */
+void InGameScene::BulletUpdate(float dt)
+{
+	if (_player->GetUnithp() > 0)
+	{
+		_bullet = new Bullet();
+		_bullet->InitObject();
+		_bullet->GetSprite()->setPosition(_player->GetSprite()->getPosition());
+		this->addChild(_bullet, INGAME_ZORDER::E_BULLET);
+		v_bullet.push_back(_bullet);
+		_bullet->release();
+	}
+}
+
+/**
 * @brief Monster 업데이트
 * @param float dt 델타 타임 (업데이트 할때 걸려야할 시간)
 */
@@ -173,6 +192,7 @@ void InGameScene::SceneUpdate(float dt)
 		_player->MinPosX(10.f);
 
 	_player->Update();
+
 	// 몬스터 업데이트 및 충돌
 	for (auto it = v_monster.begin(); it != v_monster.end();)
 	{
@@ -196,6 +216,27 @@ void InGameScene::SceneUpdate(float dt)
 		{
 			this->removeChild((*it));
 			it = v_monster.erase(it);
+		}
+		else
+		{
+			++it;
+		}
+	}
+
+	for (auto it = v_bullet.begin(); it != v_bullet.end();)
+	{
+		(*it)->Update();
+
+		//if ((*it)->GetSprite()->getBoundingBox().intersectsRect(_monster->GetSprite()->getBoundingBox()))
+		//{
+		//	// TODO 충돌 되었을때 처리
+		//	this->removeChild((*it));
+		//	it = v_bullet.erase(it);
+		//}
+		if ((*it)->GetSprite()->getPositionY() > D_DESIGN_HEIGHT)
+		{
+			this->removeChild((*it));
+			it = v_bullet.erase(it);
 		}
 		else
 		{

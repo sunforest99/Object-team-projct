@@ -21,12 +21,17 @@
 
 #define D_ADDMONEY 10
 
+#define D_BULLET_SPEED 27.f
+
+#define D_METEO_SPEED 25.f
+
 enum INGAME_ZORDER
 {
 	E_WINGS = -1,
 	E_BACKGROUND,
 	E_PLAYER,
 	E_METEO = 1,
+	E_BULLET,
 	E_MONSTER,
 	E_MONSTER_EYE,
 	E_COIN,

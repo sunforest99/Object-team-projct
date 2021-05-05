@@ -1,5 +1,8 @@
 # 객체지향 프로그래밍 1 팀 프로젝트
 
+### 순서도 ppt
+https://docs.google.com/presentation/d/1NFau7omSP_no9LHOw-IC0Ed6WTeE69t1ReMpdepKBJo/edit?usp=sharing
+
 ### 파일 다운로드 방법
 다운받을 위치에 우클릭 git bash here 클릭<br>
 git bash 에 입력 (붙혀넣기 shift + ins)

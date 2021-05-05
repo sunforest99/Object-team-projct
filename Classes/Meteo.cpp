@@ -15,5 +15,5 @@ void Meteo::InitObject()
 void Meteo::Update()
 {
 	//메테오가 떨어지는 속도
-	_meteo->setPositionY(_meteo->getPositionY() - 25.f);
+	_meteo->setPositionY(_meteo->getPositionY() - D_METEO_SPEED);
 }

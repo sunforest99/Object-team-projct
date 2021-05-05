@@ -23,6 +23,7 @@ using namespace CocosDenshion;
 #include "Coin.h"
 #include "Meteo.h"
 #include "Player.h"
+#include "Bullet.h"
 
 // Scene 여기아래로 class include 하면 안됨
 #include "StartScene.h"
