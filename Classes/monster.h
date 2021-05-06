@@ -43,6 +43,12 @@ public:
     * @brief _monster 스프라이드 주소 값 리턴
     */
     Sprite* GetSprite() const override { return _monster; }
+
+    /**
+    * @brief _monster hp 감소
+    * @param int dmg 데미지 값
+    */
+    void ReduceHp(int dmg) { _hp -= dmg; }
 };
 
 #endif //_MONSTER_H_

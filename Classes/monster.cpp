@@ -13,7 +13,9 @@ void Monster::InitObject()
 	mainsprite->addSpriteFramesWithFile("monster.plist");
 	srand(time(NULL));
 	_rand = rand() % 3;
-	switch (_rand) {
+
+	switch (_rand) 
+	{
 	case 0:
 		_monster = Sprite::createWithSpriteFrameName("dragon_1_body.png");
 		_lwing = Sprite::createWithSpriteFrameName("dragon_1_wing.png");
@@ -38,17 +40,12 @@ void Monster::InitObject()
 		_reyebrow = Sprite::createWithSpriteFrameName("dragon_3_eyebrow.png");
 		_hp = 100;
 		break;
-
 	}
 
 	_monster->setScale(D_BASE_SACLE);
 	_monster->setPositionY(D_DESIGN_HEIGHT);
 	
-
-
-	
 	// --- ³¯°³
-	
 
 	_parent = _monster->getContentSize();
 
@@ -88,9 +85,6 @@ void Monster::InitObject()
 	_monster->addChild(_reye, INGAME_ZORDER::E_MONSTER_EYE);
 
 	// ---- ´«¾Ë
-	_leyebrow = Sprite::createWithSpriteFrameName("dragon_1_eyebrow.png");
-	_reyebrow = Sprite::createWithSpriteFrameName("dragon_1_eyebrow.png");
-
 	_reyebrow->setFlipX(true);
 	_parent = _monster->getContentSize();
 

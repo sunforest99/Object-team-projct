@@ -27,6 +27,11 @@ public:
 	* @brief _bullet 스프라이트 주소 값 리턴
 	*/
 	Sprite* GetSprite() const override { return _bullet; }
+
+	/**
+	* @brief _bullet 데미지 값 리턴
+	*/
+	int GetDamage() const { return damage; }
 };
 
 #endif

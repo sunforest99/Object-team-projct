@@ -34,6 +34,8 @@ bool EndScene::init()
 	_money = UserDefault::getInstance()->getIntegerForKey("money");
 	_addmoney = UserDefault::getInstance()->getIntegerForKey("addmoney");
 	UserDefault::getInstance()->setIntegerForKey("money", _money + _addmoney);
+	// addmoney ÃÊ±âÈ­
+	UserDefault::getInstance()->setIntegerForKey("addmoney", 0);
 
 	log("%lu", _addmoney);
 	auto mainsprite = SpriteFrameCache::getInstance();
@@ -66,6 +68,7 @@ bool EndScene::init()
 	InitUi();
 
 	this->schedule(schedule_selector(EndScene::SceneUpdate), 0.0f);
+
 	_addmoney >= 1000 ? _delay = 0.001f : _delay = 0.01f;
 	this->schedule(schedule_selector(EndScene::Addmoney), _delay, _addmoney, _delay);
 

@@ -51,9 +51,9 @@ public:
     */
     static Scene* createScene();
 
-     /**
-     * @brief Layer 초기화
-     */
+    /**
+    * @brief Layer 초기화
+    */
     virtual bool init();
 
     /**
@@ -90,7 +90,6 @@ public:
     * @param float dt 델타 타임 (업데이트 할때 걸려야할 시간)
     */
     void BulletUpdate(float dt);
-
 
     /**
     * @brief 터치 되었을때 (마우스 눌렀을때)

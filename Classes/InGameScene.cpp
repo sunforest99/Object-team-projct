@@ -191,17 +191,53 @@ void InGameScene::SceneUpdate(float dt)
 	else if (_lkeycheck == true && _player->GetSprite()->getContentSize().width < _player->GetSprite()->getPositionX() && _player->GetUnithp() > 0)
 		_player->MinPosX(10.f);
 
-	_player->Update();
+	if(_player->GetUnithp() > 0)
+		_player->Update();
+	else
+		Director::getInstance()->replaceScene(EndScene::createScene());
 
 	// 몬스터 업데이트 및 충돌
 	for (auto it = v_monster.begin(); it != v_monster.end();)
 	{
 		(*it)->Update();
 
-		if ((*it)->GetSprite()->getBoundingBox().intersectsRect(_player->GetSprite()->getBoundingBox()))
+		for (auto it2 = v_bullet.begin(); it2 != v_bullet.end();)
 		{
-			// TODO 충돌 되었을때 처리
-			// player->ReduceHp(1);
+			if ((*it2)->GetSprite()->getBoundingBox().intersectsRect((*it)->GetSprite()->getBoundingBox()))
+			{
+				// TODO 충돌 되었을때 처리
+				this->removeChild((*it2));
+				it2 = v_bullet.erase(it2);
+				(*it)->ReduceHp((*it2)->GetDamage());
+			}
+			else
+			{
+				++it2;
+			}
+		}
+
+		if ((*it)->GetUnithp() > 0)
+		{
+			if ((*it)->GetSprite()->getBoundingBox().intersectsRect(_player->GetSprite()->getBoundingBox()))
+			{
+				// TODO 충돌 되었을때 처리
+				_player->ReduceHp(1);
+				
+				this->removeChild((*it));
+				it = v_monster.erase(it);
+			}
+			else if ((*it)->GetSprite()->getPositionY() < -D_DESIGN_HEIGHT)
+			{
+				this->removeChild((*it));
+				it = v_monster.erase(it);
+			}
+			else
+			{
+				++it;
+			}
+		}
+		else
+		{
 			_coin = new Coin();
 			_coin->InitObject();
 			_coin->GetSprite()->setPosition(Vec2((*it)->GetSprite()->getPositionX(), (*it)->GetSprite()->getPositionY() + 70.f));
@@ -212,27 +248,12 @@ void InGameScene::SceneUpdate(float dt)
 			this->removeChild((*it));
 			it = v_monster.erase(it);
 		}
-		else if ((*it)->GetSprite()->getPositionY() < -D_DESIGN_HEIGHT)
-		{
-			this->removeChild((*it));
-			it = v_monster.erase(it);
-		}
-		else
-		{
-			++it;
-		}
 	}
 
 	for (auto it = v_bullet.begin(); it != v_bullet.end();)
 	{
 		(*it)->Update();
 
-		//if ((*it)->GetSprite()->getBoundingBox().intersectsRect(_monster->GetSprite()->getBoundingBox()))
-		//{
-		//	// TODO 충돌 되었을때 처리
-		//	this->removeChild((*it));
-		//	it = v_bullet.erase(it);
-		//}
 		if ((*it)->GetSprite()->getPositionY() > D_DESIGN_HEIGHT)
 		{
 			this->removeChild((*it));
