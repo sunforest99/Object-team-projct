@@ -35,6 +35,8 @@ bool LobbyScene::init()
 
 	_money = UserDefault::getInstance()->getIntegerForKey("money");
 
+	UserDefault::getInstance()->setIntegerForKey("bulletlevel", 1);
+	_bulletlevel = 1;
 	srand(time(NULL));
 	_bgindex = rand() % 3;
 
@@ -106,8 +108,13 @@ void LobbyScene::UiInit()
 		case ui::Widget::TouchEventType::BEGAN:
 			break;
 		case ui::Widget::TouchEventType::ENDED:
-			if (_money > 0)
+			if (_money > 0 && _bulletlevel < 4)
 			{
+				_bulletlevel++;
+				UserDefault::getInstance()->setIntegerForKey("bulletlevel", _bulletlevel);
+				this->removeChild(_bullet);
+				_bullet->release();
+				bulletObjCreate();
 				_money -= 10;
 				UserDefault::getInstance()->setIntegerForKey("money", _money);
 				_coinlabel->setString(StringUtils::format("%lu", _money));
@@ -145,6 +152,19 @@ void LobbyScene::objectInit()
 	_player->InitObject();
 	_player->GetSprite()->setPosition(Vec2(_visibleSize.width / 2.f - 250.f, _visibleSize.height / 2.f + 150.f));
 	this->addChild(_player, OTHER_ZORDER::E_UPLAYER);
+
+	bulletObjCreate();
+}
+
+/**
+* @brief Bullet »ý¼º
+*/
+void LobbyScene::bulletObjCreate()
+{
+	_bullet = new Bullet();
+	_bullet->InitObject();
+	_bullet->GetSprite()->setPosition(Vec2(_visibleSize.width / 2.f + 250.f, _visibleSize.height / 2.f + 150.f));
+	this->addChild(_bullet, OTHER_ZORDER::E_UPLAYER);
 }
 
 /**

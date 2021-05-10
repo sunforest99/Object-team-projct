@@ -2,13 +2,16 @@
 
 void Bullet::InitObject()
 {
-	auto bulletsprite = SpriteFrameCache::getInstance();
-	bulletsprite->addSpriteFramesWithFile("player.plist");
+	_bulletsprite = SpriteFrameCache::getInstance();
+	_bulletsprite->addSpriteFramesWithFile("player.plist");
 
-	_bullet = Sprite::createWithSpriteFrameName("bullet_01_01.png");
+	_bulletlevel = UserDefault::getInstance()->getIntegerForKey("bulletlevel");
+
+	_bullet = Sprite::createWithSpriteFrameName(StringUtils::format("bullet_01_0%d.png", _bulletlevel));
 	_bullet->setPosition(Vec2(D_DESIGN_WIDTH/2, D_DESIGN_HEIGHT / 2));
 
-	damage = 10;
+	_damage = 1 * _bulletlevel;
+	log("%d", _bulletlevel);
 
 	//°´Ã¼ Ãß°¡
 	this->addChild(_bullet, INGAME_ZORDER::E_METEO);

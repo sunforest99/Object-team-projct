@@ -13,6 +13,7 @@ private:
     int _bgindex;
 
     Player* _player;
+    Bullet* _bullet;
 
     // 배경 이미지
     Sprite* _bg1;
@@ -31,6 +32,7 @@ private:
 
     char* _moneystring;
     unsigned int _money;
+    unsigned int _bulletlevel;
 public:
     ~LobbyScene();
     /**
@@ -52,6 +54,11 @@ public:
      * @brief object 초기화
      */
     void objectInit();
+
+    /**
+     * @brief Bullet 생성
+     */
+    void bulletObjCreate();
 
     /**
      * @brief InGameScene 업데이트

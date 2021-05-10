@@ -7,9 +7,11 @@ class Bullet : public Unit
 {
 private:
 	// 총알 이미지
+	SpriteFrameCache* _bulletsprite;
 	Sprite* _bullet;
 
-	int damage;
+	unsigned int _damage;
+	unsigned int _bulletlevel;
 
 public:
 
@@ -31,7 +33,7 @@ public:
 	/**
 	* @brief _bullet 데미지 값 리턴
 	*/
-	int GetDamage() const { return damage; }
+	int GetDamage() const { return _damage; }
 };
 
 #endif
