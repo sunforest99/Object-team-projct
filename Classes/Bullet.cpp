@@ -11,7 +11,6 @@ void Bullet::InitObject()
 	_bullet->setPosition(Vec2(D_DESIGN_WIDTH/2, D_DESIGN_HEIGHT / 2));
 
 	_damage = 1 * _bulletlevel;
-	log("%d", _bulletlevel);
 
 	//°´Ã¼ Ãß°¡
 	this->addChild(_bullet, INGAME_ZORDER::E_METEO);

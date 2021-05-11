@@ -9,11 +9,15 @@ void Meteo::InitObject()
 	_rand = rand() % D_RAND_MAX + 1;
 	_meteo->setPosition(Vec2(_rand * _meteo->getContentSize().width  * 0.5f, D_DESIGN_HEIGHT));
 	//객체 추가
+	auto rotateTo = RotateBy::create(2.0f, 360.0f);
+	_meteo->runAction(rotateTo);
+
 	this->addChild(_meteo, INGAME_ZORDER::E_METEO);
 }
 
 void Meteo::Update()
 {
 	//메테오가 떨어지는 속도
+	
 	_meteo->setPositionY(_meteo->getPositionY() - D_METEO_SPEED);
 }

@@ -107,6 +107,7 @@ void EndScene::InitUi()
 		case ui::Widget::TouchEventType::BEGAN:
 			break;
 		case ui::Widget::TouchEventType::ENDED:
+			SimpleAudioEngine::getInstance()->playEffect("sound/ui_button.wav");
 			Director::getInstance()->replaceScene(LobbyScene::createScene());
 			break;
 		default:

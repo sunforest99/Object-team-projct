@@ -35,8 +35,7 @@ bool StartScene::init()
 	UserDefault::getInstance()->setIntegerForKey("money", 1000);
 	UserDefault::getInstance()->setIntegerForKey("addmoney", 0);
 	// 배경음악 시끄러워서 주석처리
-	/*auto audio = SimpleAudioEngine::getInstance();
-	audio->playBackgroundMusic("bgm/dragon_flight2.mp3", true);*/
+	SimpleAudioEngine::getInstance()->playBackgroundMusic("bgm/dragon_flight2.mp3", true);
 
 	srand(time(NULL));
 	_bgindex = rand() % 3;
@@ -73,6 +72,12 @@ bool StartScene::init()
 	// 터치 이벤트를 ONE_BY_ONE 형식으로 받겠다
 	this->setTouchEnabled(true);
 	this->setTouchMode(Touch::DispatchMode::ONE_BY_ONE);
+
+	// 키보드 이벤트 리스너 생성
+	auto listener = EventListenerKeyboard::create();
+	listener->onKeyPressed = CC_CALLBACK_2(StartScene::onKeyPressed, this);
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+
 	return true;
 }
 
@@ -106,4 +111,19 @@ bool StartScene::onTouchBegan(Touch* touch, Event* unused_event)
 	// Scene 전환
 	Director::getInstance()->replaceScene(LobbyScene::createScene());
 	return true;
+}
+
+/**
+* @brief 키보드 입력 이벤트 발생시 호출되는 callback 함수
+* @param KeyCode keyCode 입력된 키 코드
+* @param Event* event 이벤트 종류
+**/
+void StartScene::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
+{
+	if (keyCode == EventKeyboard::KeyCode::KEY_SPACE)
+	{
+		UserDefault::getInstance()->setIntegerForKey("bulletlevel", 1);
+		UserDefault::getInstance()->setIntegerForKey("money", 1000);
+		UserDefault::getInstance()->setIntegerForKey("hightscore", 0);
+	}
 }

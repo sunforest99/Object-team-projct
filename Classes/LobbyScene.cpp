@@ -35,8 +35,8 @@ bool LobbyScene::init()
 
 	_money = UserDefault::getInstance()->getIntegerForKey("money");
 
-	UserDefault::getInstance()->setIntegerForKey("bulletlevel", 1);
-	_bulletlevel = 1;
+	_bulletlevel = UserDefault::getInstance()->getIntegerForKey("bulletlevel");
+
 	srand(time(NULL));
 	_bgindex = rand() % 3;
 
@@ -88,6 +88,7 @@ void LobbyScene::UiInit()
 		case ui::Widget::TouchEventType::BEGAN:
 			break;
 		case ui::Widget::TouchEventType::ENDED:
+			SimpleAudioEngine::getInstance()->playEffect("sound/ui_button.wav");
 			Director::getInstance()->replaceScene(InGameScene::createScene());
 			break;
 		default:
@@ -110,6 +111,8 @@ void LobbyScene::UiInit()
 		case ui::Widget::TouchEventType::ENDED:
 			if (_money > 0 && _bulletlevel < 4)
 			{
+				SimpleAudioEngine::getInstance()->playEffect("sound/ui_button.wav");
+				SimpleAudioEngine::getInstance()->playEffect("sound/shop_coin.wav");
 				_bulletlevel++;
 				UserDefault::getInstance()->setIntegerForKey("bulletlevel", _bulletlevel);
 				this->removeChild(_bullet);

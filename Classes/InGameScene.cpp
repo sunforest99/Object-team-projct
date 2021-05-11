@@ -41,15 +41,13 @@ bool InGameScene::init()
 	_visibleSize = Director::getInstance()->getVisibleSize();
 
 	_money = UserDefault::getInstance()->getIntegerForKey("money");
-	log("money: %d", _money);
 
 	InitUi();
 	InitBG();
 	InitPlayer();
 
 	// 배경음악 시끄러워서 주석처리
-	/*auto audio = SimpleAudioEngine::getInstance();
-	audio->playBackgroundMusic("bgm/dragon_flight.mp3", true);*/
+	SimpleAudioEngine::getInstance()->playBackgroundMusic("bgm/dragon_flight.mp3", true);
 
 	this->schedule(schedule_selector(InGameScene::SceneUpdate), 0.0f);
 	this->schedule(schedule_selector(InGameScene::MonsterUpdate), 3.0f);
@@ -164,6 +162,7 @@ void InGameScene::MeteoUpdate(float dt)
 	this->addChild(_meteo, INGAME_ZORDER::E_METEO);
 	v_meteo.push_back(_meteo);
 	_meteo->release();
+	SimpleAudioEngine::getInstance()->playEffect("sound/meteor.wav");
 }
 
 /**
@@ -191,10 +190,31 @@ void InGameScene::SceneUpdate(float dt)
 	else if (_lkeycheck == true && _player->GetSprite()->getContentSize().width < _player->GetSprite()->getPositionX() && _player->GetUnithp() > 0)
 		_player->MinPosX(10.f);
 
-	if(_player->GetUnithp() > 0)
+	if (_player->GetUnithp() > 0)
+	{
 		_player->Update();
+		// 총알 업데이트
+		for (auto it = v_bullet.begin(); it != v_bullet.end();)
+		{
+			(*it)->Update();
+
+			if ((*it)->GetSprite()->getPositionY() > D_DESIGN_HEIGHT)
+			{
+				this->removeChild((*it));
+				it = v_bullet.erase(it);
+			}
+			else
+			{
+				++it;
+			}
+		}
+	}
 	else
+	{
+		SimpleAudioEngine::getInstance()->playEffect("sound/ch_die.wav");
+		UserDefault::getInstance()->setIntegerForKey("score", _score);
 		Director::getInstance()->replaceScene(EndScene::createScene());
+	}
 
 	// 몬스터 업데이트 및 충돌
 	for (auto it = v_monster.begin(); it != v_monster.end();)
@@ -206,9 +226,9 @@ void InGameScene::SceneUpdate(float dt)
 			if ((*it2)->GetSprite()->getBoundingBox().intersectsRect((*it)->GetSprite()->getBoundingBox()))
 			{
 				// TODO 충돌 되었을때 처리
+				(*it)->ReduceHp((*it2)->GetDamage());
 				this->removeChild((*it2));
 				it2 = v_bullet.erase(it2);
-				(*it)->ReduceHp((*it2)->GetDamage());
 			}
 			else
 			{
@@ -238,6 +258,7 @@ void InGameScene::SceneUpdate(float dt)
 		}
 		else
 		{
+			SimpleAudioEngine::getInstance()->playEffect("sound/mon_die.wav");
 			_coin = new Coin();
 			_coin->InitObject();
 			_coin->GetSprite()->setPosition(Vec2((*it)->GetSprite()->getPositionX(), (*it)->GetSprite()->getPositionY() + 70.f));
@@ -250,21 +271,6 @@ void InGameScene::SceneUpdate(float dt)
 		}
 	}
 
-	for (auto it = v_bullet.begin(); it != v_bullet.end();)
-	{
-		(*it)->Update();
-
-		if ((*it)->GetSprite()->getPositionY() > D_DESIGN_HEIGHT)
-		{
-			this->removeChild((*it));
-			it = v_bullet.erase(it);
-		}
-		else
-		{
-			++it;
-		}
-	}
-
 	// 메테오 업데이트 및 충돌
 	for (auto it = v_meteo.begin(); it != v_meteo.end();)
 	{
@@ -273,7 +279,7 @@ void InGameScene::SceneUpdate(float dt)
 		if ((*it)->GetSprite()->getBoundingBox().intersectsRect(_player->GetSprite()->getBoundingBox()))
 		{
 			// TODO 충돌 되었을때 처리
-			// player->ReduceHp(1);
+			_player->ReduceHp(1);
 			this->removeChild((*it));
 			it = v_meteo.erase(it);
 		}
@@ -299,6 +305,7 @@ void InGameScene::SceneUpdate(float dt)
 			_addmoney += D_ADDMONEY;
 			_coinlabel->setString(StringUtils::format("%lu", _addmoney));
 			UserDefault::getInstance()->setIntegerForKey("addmoney", _addmoney);
+			SimpleAudioEngine::getInstance()->playEffect("sound/get_coin.wav");
 			this->removeChild((*it));
 			it = v_coin.erase(it);
 		}
@@ -349,19 +356,6 @@ void InGameScene::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 		_rkeycheck = true;
 	if (keyCode == EventKeyboard::KeyCode::KEY_LEFT_ARROW)
 		_lkeycheck = true;
-
-	// 테스트용 =========================================================
-	if (keyCode == EventKeyboard::KeyCode::KEY_BACKSPACE)
-		Director::getInstance()->replaceScene(LobbyScene::createScene());
-
-	if (keyCode == EventKeyboard::KeyCode::KEY_SPACE)
-		Director::getInstance()->replaceScene(EndScene::createScene());
-
-	if (keyCode == EventKeyboard::KeyCode::KEY_1)
-		UserDefault::getInstance()->setIntegerForKey("score", 10);
-	if (keyCode == EventKeyboard::KeyCode::KEY_2)
-		UserDefault::getInstance()->setIntegerForKey("score", 100);
-	// =================================================================
 }
 
 void InGameScene::onKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)

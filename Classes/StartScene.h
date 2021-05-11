@@ -47,6 +47,13 @@ public:
     */
     virtual bool onTouchBegan(Touch* touch, Event* unused_event);
 
+    /**
+    * @brief 키보드 입력 이벤트 발생시 호출되는 callback 함수
+    * @param KeyCode keyCode 입력된 키 코드
+    * @param Event* event 이벤트 종류
+    **/
+    virtual void onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event);
+
     // implement the "static create()" method manually
     CREATE_FUNC(StartScene);
 };
